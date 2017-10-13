@@ -9,6 +9,7 @@ export default {
   data() {
     return {
       header: "My header",
+      string: "sda",
     };
   },
 };
