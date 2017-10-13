@@ -21,4 +21,9 @@ export default {
 };
 </script>
 
-<style src="./common/main.css"></style>
+<style lang="scss">
+.container {
+  background: $red
+}
+</style>
+
