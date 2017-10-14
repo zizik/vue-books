@@ -21,6 +21,7 @@ export default {
 };
 </script>
 
+<style lang="scss" src="./styles/_reset.scss"></style>
 <style lang="scss" src="./styles/common.scss"></style>
 <style lang="scss">
 body {

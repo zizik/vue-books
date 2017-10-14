@@ -1,6 +1,8 @@
 <template>
-  <header>
-    {{header}}
+  <header class="header">
+    <div class="container">
+      {{header}}
+    </div>
   </header>
 </template>
 
@@ -16,7 +18,7 @@ export default {
 </script>
 
 <style lang="scss">
-header {
+.header {
   background-color: red
 }
 </style>
