@@ -4,12 +4,22 @@
     <div class="content__item">book 2</div>
     <div class="content__item">book 3</div>
     <div class="content__item">book 4</div>
+    <button @click="add">Add</button>
   </div>
 </template>
 
 <script>
-export default {
+import api from "../api/api";
 
+export default {
+  methods: {
+    add() {
+      api.setData();
+    },
+  },
+  created() {
+    api.getData().then(snapshot => console.log(snapshot.val()));
+  },
 };
 </script>
 
