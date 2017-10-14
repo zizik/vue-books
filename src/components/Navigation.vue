@@ -1,9 +1,9 @@
 <template>
-  <nav>
+  <nav class="navigation">
     <ul>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
+      <li class="navigation__item">1</li>
+      <li class="navigation__item">2</li>
+      <li class="navigation__item">3</li>
     </ul>
   </nav>
 </template>
@@ -14,6 +14,10 @@ export default {
 };
 </script>
 
-<style>
-
+<style lang="scss">
+.navigation {
+  width: 200px;
+  background-color: #ff0055;
+  margin-left: $gutter;
+}
 </style>

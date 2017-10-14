@@ -2,8 +2,10 @@
   <div id="app">
     <main-header></main-header>
     <div class="container">
-      <main-navigation></main-navigation>
-      <router-view/>
+      <div class="app__content">
+        <router-view/>
+        <main-navigation></main-navigation>
+      </div>
     </div>
   </div>
 </template>
@@ -23,4 +25,11 @@ export default {
 
 <style lang="scss" src="../node_modules/reset-css/_reset.scss"></style>
 <style lang="scss" src="./styles/common.scss"></style>
+<style lang="scss">
+.app__content {
+  display: flex;
+  padding-top: $gutter;
+}
+</style>
+
 
