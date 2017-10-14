@@ -21,11 +21,6 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./styles/_reset.scss"></style>
+<style lang="scss" src="../node_modules/reset-css/_reset.scss"></style>
 <style lang="scss" src="./styles/common.scss"></style>
-<style lang="scss">
-body {
-  height: 100%;
-}
-</style>
 
