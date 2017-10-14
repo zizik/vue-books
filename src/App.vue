@@ -21,9 +21,10 @@ export default {
 };
 </script>
 
+<style lang="scss" src="./styles/common.scss"></style>
 <style lang="scss">
-.container {
-  background: $red
+body {
+  height: 100%;
 }
 </style>
 
