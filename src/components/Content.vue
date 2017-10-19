@@ -1,6 +1,7 @@
 <template>
   <div class="content">
-    <table class="content__table">
+    <div v-if="!hasBooks" class="content__warn">Книг нет</div>
+    <table v-else class="content__table">
       <thead>
         <tr>
           <th>Manga Name</th>
@@ -45,12 +46,22 @@ export default {
       this.books.push({ id: data.key, ...data.val() });
     });
   },
+  computed: {
+    hasBooks() {
+      return this.books.length > 0;
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .content {
   flex-grow: 1;
+
+  &__warn {
+    font-size: 40px;
+    text-align: center;
+  }
 
   &__table {
     width: 100%;
