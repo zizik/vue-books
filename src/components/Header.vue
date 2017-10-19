@@ -25,6 +25,7 @@ export default {
   height: 100px;
 
   &__name {
+    @include helvetica;
     height: 100%;
     display: flex;
     align-items: center;

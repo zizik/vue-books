@@ -7,3 +7,10 @@ $width_big: 960px;
 
 // Gutters
 $gutter: 10px;
+
+// Font
+@mixin helvetica($size: 14px) {
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  font-size: $size;
+  font-weight: 900;
+}
