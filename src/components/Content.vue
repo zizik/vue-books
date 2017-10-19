@@ -70,6 +70,8 @@ export default {
   }
 
   &__table-head {
+    font-family: "Helvetica Neue", Helvetica, Arial;
+    font-size: 14px;
     font-weight: 900;
     color: #ffffff;
     background: $accent;
