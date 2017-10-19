@@ -21,7 +21,7 @@ export default {
 
 <style lang="scss">
 .header {
-  background-color: red;
+  background-color: $accent;
   height: 100px;
 
   &__name {
