@@ -2,6 +2,7 @@
 $accent: #d5e0cc;
 $text-color: #3b3b3b;
 $border-color: #b3bfaa;
+$light-color: #f6f6f6;
 
 // Sizes
 $width_big: 960px;
@@ -9,13 +10,18 @@ $width_big: 960px;
 // Gutters
 $gutter: 10px;
 
-// Font
+// Others
+$border: 1px solid $border-color;
+$box-shadow: 0 1px 10px rgba(#000, 0.2);
+
+// Mixins
 @mixin helvetica($size: 14px) {
   font-family: "Helvetica Neue", Helvetica, Arial;
   font-size: $size;
   font-weight: 900;
 }
 
-// Others
-$border: 1px solid $border-color;
-$box-shadow: 0 1px 10px rgba(#000, 0.2);
+@mixin edging() {
+  border: $border;
+  box-shadow: $box-shadow;
+}

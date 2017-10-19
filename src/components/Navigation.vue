@@ -19,14 +19,13 @@ export default {};
 .navigation {
   width: 200px;
   height: 100%;
-  background-color: #f6f6f6;
+  background-color: $light-color;
   margin-left: $gutter;
   box-shadow: $box-shadow;
   border: $border;
 
   &__link {
     display: block;
-    width: 100%;
     box-sizing: border-box;
     padding: 6px 12px;
     border-bottom: $border;
