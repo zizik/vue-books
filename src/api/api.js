@@ -13,17 +13,15 @@ firebase.initializeApp(config);
 class FirebaseApi {
   constructor() {
     this.db = firebase.database();
+    this.booksRef = this.db.ref("books/manga");
   }
 
   getData() {
-    return this.db.ref("books/manga").once("value");
+    return this.booksRef.once("value");
   }
 
-  setData() {
-    this.db.ref("books/manga").push({
-      name: "name",
-      volume: "volume",
-    });
+  setData(data) {
+    this.booksRef.push(data);
   }
 }
 

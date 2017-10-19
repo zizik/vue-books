@@ -1,24 +1,49 @@
 <template>
   <div class="content">
-    <div class="content__item">book 1</div>
-    <div class="content__item">book 2</div>
-    <div class="content__item">book 3</div>
-    <div class="content__item">book 4</div>
+    <table class="content__table">
+      <thead>
+        <tr>
+          <th>Manga Name</th>
+          <th>Readed Chapters</th>
+          <th>All Chapters</th>
+          <th>Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <contentItem v-for="book of books" v-bind:key="book.id" :book="book"></contentItem>
+      </tbody>
+    </table>
     <button @click="add">Add</button>
   </div>
 </template>
 
 <script>
 import api from "../api/api";
+import ContentItem from "./ContentItem";
 
 export default {
+  components: {
+    contentItem: ContentItem,
+  },
+  data() {
+    return {
+      books: [],
+    };
+  },
   methods: {
     add() {
-      api.setData();
+      api.setData({
+        name: "Manga2",
+        allChapters: "222",
+        readedChapters: "11",
+        priority: "1",
+      });
     },
   },
   created() {
-    api.getData().then(snapshot => console.log(snapshot.val()));
+    api.booksRef.on("child_added", (data) => {
+      this.books.push({ id: data.key, ...data.val() });
+    });
   },
 };
 </script>
@@ -26,6 +51,10 @@ export default {
 <style lang="scss">
 .content {
   flex-grow: 1;
+
+  &__table {
+    width: 100%;
+  }
 }
 
 .content__item:nth-child(odd) {
