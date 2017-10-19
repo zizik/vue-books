@@ -28,6 +28,7 @@ export default {
     height: 100%;
     display: flex;
     align-items: center;
+    color: $text-color;
   }
 }
 </style>

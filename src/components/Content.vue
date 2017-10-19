@@ -86,6 +86,7 @@ export default {
 
   &__table-row-cell {
     padding: 6px 12px;
+    color: $text-color;
   }
 
   &__table-row {
