@@ -2,16 +2,22 @@
   <div class="content">
     <div v-if="!hasBooks" class="content__warn">Книг нет</div>
     <table v-else class="content__table">
-      <thead>
+      <thead class="content__table-head">
         <tr>
-          <th>Manga Name</th>
-          <th>Readed Chapters</th>
-          <th>All Chapters</th>
-          <th>Priority</th>
+          <th class="content__table-head-cell content__table-head-cell_name">Manga Name</th>
+          <th class="content__table-head-cell">Readed</th>
+          <th class="content__table-head-cell">All</th>
+          <th class="content__table-head-cell">Priority</th>
         </tr>
       </thead>
       <tbody>
-        <contentItem v-for="book of books" v-bind:key="book.id" :book="book"></contentItem>
+        <tr class="content__table-row" v-for="book of books" v-bind:key="book.id">
+          <td class="content__table-row-cell">{{book.name}}</td>
+          <td class="content__table-row-cell">{{book.allChapters}}</td>
+          <td class="content__table-row-cell">{{book.readedChapters}}</td>
+          <td class="content__table-row-cell">{{book.priority}}</td>
+        </tr>
+        <!-- <contentItem class="content__table-head-cell" v-for="book of books" v-bind:key="book.id" :book="book"></contentItem> -->
       </tbody>
     </table>
     <button @click="add">Add</button>
@@ -20,12 +26,8 @@
 
 <script>
 import api from "../api/api";
-import ContentItem from "./ContentItem";
 
 export default {
-  components: {
-    contentItem: ContentItem,
-  },
   data() {
     return {
       books: [],
@@ -66,13 +68,31 @@ export default {
   &__table {
     width: 100%;
   }
-}
 
-.content__item:nth-child(odd) {
-  background-color: #00ff66;
-}
+  &__table-head {
+    font-weight: 900;
+    color: #ffffff;
+    background: $accent;
+    text-align: left;
+  }
 
-.content__item:nth-child(even) {
-  background-color: #0066ff;
+  &__table-head-cell {
+    padding: 6px 12px;
+
+    &_name {
+      width: 300px;
+    }
+  }
+
+  &__table-row-cell {
+    padding: 6px 12px;
+  }
+
+  &__table-row {
+    background-color: #e9e9e9;
+  }
+  &__table-row:nth-child(odd) {
+    background-color: #f6f6f6;
+  }
 }
 </style>
