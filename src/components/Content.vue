@@ -67,26 +67,27 @@ export default {
 
   &__table {
     width: 100%;
+    padding: 6px 12px;
+    box-shadow: $box-shadow;
+  }
+
+  &__table-head-cell,
+  &__table-row-cell {
+    border: $border;
+    padding: 0.5em 1em;
   }
 
   &__table-head {
     @include helvetica;
-    color: #ffffff;
+    color: $text-color;
     background: $accent;
     text-align: left;
   }
 
   &__table-head-cell {
-    padding: 6px 12px;
-
     &_name {
       width: 300px;
     }
-  }
-
-  &__table-row-cell {
-    padding: 6px 12px;
-    color: $text-color;
   }
 
   &__table-row {

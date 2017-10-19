@@ -23,6 +23,8 @@ export default {
 .header {
   background-color: $accent;
   height: 100px;
+  border-bottom: $border;
+  box-shadow: $box-shadow;
 
   &__name {
     @include helvetica;

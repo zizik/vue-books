@@ -1,6 +1,7 @@
 // Colors
-$accent: #ea6153;
+$accent: #d5e0cc;
 $text-color: #3b3b3b;
+$border-color: #b3bfaa;
 
 // Sizes
 $width_big: 960px;
@@ -14,3 +15,7 @@ $gutter: 10px;
   font-size: $size;
   font-weight: 900;
 }
+
+// Others
+$border: 1px solid $border-color;
+$box-shadow: 0 1px 10px rgba(#000, 0.2);
