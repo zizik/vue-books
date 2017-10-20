@@ -1,7 +1,7 @@
 <template>
   <form class="form">
       <input class="form__input" type="text" placeholder="Введите название" v-model="name"> 
-      <input class="form__input" type="number" placeholder="Глав прочитано" v-model="chapters"> 
+      <input class="form__input" type="number" placeholder="Глав прочитано" v-model.number="chapters"> 
       <select v-model="priority" class="form__select">
         <option selected disabled hidden value="default">Выберете приоритет</option>
         <option value="1">Высокий</option>
@@ -24,13 +24,22 @@ export default {
     };
   },
   methods: {
+    validateForm() {
+      let isValid = false;
+      if (this.name && this.chapters > 0 && this.priority !== "default") {
+        isValid = true;
+      }
+      return isValid;
+    },
     createBook() {
-      api.setData({
-        name: this.name,
-        readedChapters: this.chapters,
-        priority: this.priority,
-        allChapters: "0",
-      });
+      if (this.isValid()) {
+        api.setData({
+          name: this.name,
+          readedChapters: this.chapters,
+          priority: this.priority,
+          allChapters: "0",
+        });
+      }
     },
   },
 };
