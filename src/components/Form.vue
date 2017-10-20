@@ -2,12 +2,13 @@
   <form class="form">
       <input class="form__input" type="text" placeholder="Введите название" v-model="name"> 
       <input class="form__input" type="number" placeholder="Глав прочитано" v-model="chapters"> 
-      <select v-model="priority">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
+      <select v-model="priority" class="form__select">
+        <option selected disabled hidden value="default">Выберете приоритет</option>
+        <option value="1">Высокий</option>
+        <option value="2">Средний</option>
+        <option value="3">Низкий</option>
       </select>
-      <button @click.prevent="createBook">Создать</button>
+      <button class="form__submit" @click.prevent="createBook">Создать</button>
   </form>
 </template>
 
@@ -19,7 +20,7 @@ export default {
     return {
       name: "",
       chapters: "",
-      priority: "",
+      priority: "default",
     };
   },
   methods: {
@@ -42,15 +43,26 @@ export default {
   @include edging;
   background-color: $light-color;
 
+  &__input,
+  &__select {
+    padding: 6px 12px;
+    margin-bottom: 20px;
+  }
+
   &__input {
     width: 100%;
-    margin-bottom: 20px;
-    padding: 6px 12px;
     box-sizing: border-box;
+  }
 
-    &:last-child {
-      margin-bottom: 0;
-    }
+  &__select {
+    outline: 0;
+  }
+
+  &__submit {
+    display: block;
+    padding: 6px 12px;
+    border: $border;
+    background-color: $accent;
   }
 }
 </style>
