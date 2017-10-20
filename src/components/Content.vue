@@ -20,7 +20,6 @@
         <!-- <contentItem class="content__table-head-cell" v-for="book of books" v-bind:key="book.id" :book="book"></contentItem> -->
       </tbody>
     </table>
-    <button @click="add">Add</button>
   </div>
 </template>
 
@@ -32,16 +31,6 @@ export default {
     return {
       books: [],
     };
-  },
-  methods: {
-    add() {
-      api.setData({
-        name: "Manga2",
-        allChapters: "222",
-        readedChapters: "11",
-        priority: "1",
-      });
-    },
   },
   created() {
     api.booksRef.on("child_added", (data) => {
