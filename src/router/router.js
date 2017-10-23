@@ -11,7 +11,6 @@ export default new Router({
     {
       path: "/",
       name: "App",
-      component: Content,
       redirect: "/books",
     },
     {
