@@ -10,7 +10,7 @@
         <option class="form__option" value="low">Низкий</option>
       </select>
       <button v-if="!editing" class="form__submit" @click.prevent="createBook">Создать</button>
-      <button v-if="editing" class="form__submit" @click.prevent="editBook">Редактировать</button>
+      <button v-else class="form__submit" @click.prevent="editBook">Редактировать</button>
   </form>
 </template>
 
