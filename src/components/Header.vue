@@ -2,7 +2,7 @@
   <header class="header">
     <div class="container">
       <div class="header__name">
-        {{header}}
+        <router-link class="header__link" :to="{name: 'Books'}" href="/books">{{header}}</router-link>
       </div>
     </div>
   </header>
@@ -13,7 +13,6 @@ export default {
   data() {
     return {
       header: "My header",
-      string: "sda",
     };
   },
 };
@@ -31,6 +30,11 @@ export default {
     height: 100%;
     display: flex;
     align-items: center;
+    color: $text-color;
+  }
+
+  &__link {
+    text-decoration: none;
     color: $text-color;
   }
 }
