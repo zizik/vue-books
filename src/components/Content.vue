@@ -3,13 +3,13 @@
     <div v-if="!hasBooks" class="content__warn">Книг нет</div>
     <div v-else>
       <div class="content__search-wrapper">
-        <label>
-          Найти книгу
+        <label class="content__label">
+          Найти книгу:
           <input class="content__search" v-model="searchBook" type="text" placeholder="Найти книгу">
         </label>
-        <label>
-          Приоритет
-          <select v-model="priorityFilter">
+        <label class="content__label">
+          Приоритет:
+          <select class="content__priority" v-model="priorityFilter">
             <option value="all">Все</option>
             <option value="hight">Высокий</option>
             <option value="medium">Средний</option>
@@ -118,7 +118,17 @@ export default {
     margin-bottom: 10px;
   }
 
-  &__search {
+  &__label {
+    @include helvetica;
+
+    &:not(:last-child) {
+      margin-right: 30px;
+    }
+  }
+
+  &__search,
+  &__priority {
+    margin-left: 6px;
     padding: 6px 12px;
     border-radius: 3px;
     border: $border;
