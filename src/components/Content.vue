@@ -14,8 +14,8 @@
       <tbody>
         <tr class="content__table-row" v-for="book of books" v-bind:key="book.id">
           <td class="content__table-row-cell">{{book.name}}</td>
-          <td class="content__table-row-cell">{{book.allChapters}}</td>
           <td class="content__table-row-cell">{{book.readedChapters}}</td>
+          <td class="content__table-row-cell">{{book.allChapters}}</td>
           <td class="content__table-row-cell">{{book.priority}}</td>
           <td class="content__table-row-cell">
             <button class="content__btn content__btn_delete" @click="deleteBook(book.id)"></button>
