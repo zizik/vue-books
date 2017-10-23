@@ -8,6 +8,7 @@
           <th class="content__table-head-cell">Readed</th>
           <th class="content__table-head-cell">All</th>
           <th class="content__table-head-cell">Priority</th>
+          <th class="content__table-head-cell">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -16,8 +17,10 @@
           <td class="content__table-row-cell">{{book.allChapters}}</td>
           <td class="content__table-row-cell">{{book.readedChapters}}</td>
           <td class="content__table-row-cell">{{book.priority}}</td>
+          <td class="content__table-row-cell">
+            <button class="content__delete-btn" @click="deleteBook(book)"></button>
+          </td>
         </tr>
-        <!-- <contentItem class="content__table-head-cell" v-for="book of books" v-bind:key="book.id" :book="book"></contentItem> -->
       </tbody>
     </table>
   </div>
@@ -40,6 +43,11 @@ export default {
   computed: {
     hasBooks() {
       return this.books.length > 0;
+    },
+  },
+  methods: {
+    deleteBook(book) {
+      console.log(book);
     },
   },
 };
@@ -84,6 +92,17 @@ export default {
   }
   &__table-row:nth-child(odd) {
     background-color: #f6f6f6;
+  }
+
+  &__delete-btn {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: url("../assets/delete.svg") no-repeat center center;
+    background-size: 14px;
+    display: inline-block;
+    cursor: pointer;
+    border: $border;
   }
 }
 </style>
