@@ -18,7 +18,7 @@
           <td class="content__table-row-cell">{{book.readedChapters}}</td>
           <td class="content__table-row-cell">{{book.priority}}</td>
           <td class="content__table-row-cell">
-            <button class="content__delete-btn" @click="deleteBook(book)"></button>
+            <button class="content__delete-btn" @click="deleteBook(book.id)"></button>
           </td>
         </tr>
       </tbody>
@@ -46,8 +46,9 @@ export default {
     },
   },
   methods: {
-    deleteBook(book) {
-      console.log(book);
+    deleteBook(id) {
+      api.removeData(id);
+      // console.log(id);
     },
   },
 };

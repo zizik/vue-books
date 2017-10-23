@@ -23,6 +23,10 @@ class FirebaseApi {
   setData(data) {
     return this.booksRef.push(data);
   }
+
+  removeData(id) {
+    return this.booksRef.child(id).remove();
+  }
 }
 
 export default new FirebaseApi();
