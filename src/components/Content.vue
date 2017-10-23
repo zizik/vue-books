@@ -6,7 +6,6 @@
         <tr>
           <th class="content__table-head-cell content__table-head-cell_name">Manga Name</th>
           <th class="content__table-head-cell">Readed</th>
-          <th class="content__table-head-cell">All</th>
           <th class="content__table-head-cell">Priority</th>
           <th class="content__table-head-cell">Actions</th>
         </tr>
@@ -18,8 +17,7 @@
               {{book.name}}
             </a>
           </td>
-          <td class="content__table-row-cell">{{book.readedChapters}}</td>
-          <td class="content__table-row-cell">{{book.allChapters}}</td>
+          <td class="content__table-row-cell">{{book.chapters}}</td>
           <td class="content__table-row-cell">{{book.priority}}</td>
           <td class="content__table-row-cell">
             <button class="content__btn content__btn_delete" @click="deleteBook(book.id)"></button>
