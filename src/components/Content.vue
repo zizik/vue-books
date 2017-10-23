@@ -1,31 +1,36 @@
 <template>
   <div class="content">
     <div v-if="!hasBooks" class="content__warn">Книг нет</div>
-    <table v-else class="content__table">
-      <thead class="content__table-head">
-        <tr>
-          <th class="content__table-head-cell content__table-head-cell_name">Manga Name</th>
-          <th class="content__table-head-cell">Readed</th>
-          <th class="content__table-head-cell">Priority</th>
-          <th class="content__table-head-cell">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="content__table-row" v-for="book of books" v-bind:key="book.id">
-          <td class="content__table-row-cell">
-            <a class="content__table-link" :href="book.link">
-              {{book.name}}
-            </a>
-          </td>
-          <td class="content__table-row-cell">{{book.chapters}}</td>
-          <td class="content__table-row-cell">{{book.priority}}</td>
-          <td class="content__table-row-cell">
-            <button class="content__btn content__btn_delete" @click="deleteBook(book.id)"></button>
-            <button class="content__btn content__btn_edit" @click="editBook(book.id)"></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div v-else>
+      <div class="content__search-wrapper">
+        <input class="content__search" v-model="searchBook" type="text" placeholder="Найти книгу">
+      </div>
+      <table class="content__table">
+        <thead class="content__table-head">
+          <tr>
+            <th class="content__table-head-cell content__table-head-cell_name">Manga Name</th>
+            <th class="content__table-head-cell">Readed</th>
+            <th class="content__table-head-cell">Priority</th>
+            <th class="content__table-head-cell">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="content__table-row" v-for="book of filteredBooks" v-bind:key="book.id">
+            <td class="content__table-row-cell">
+              <a class="content__table-link" :href="book.link">
+                {{book.name}}
+              </a>
+            </td>
+            <td class="content__table-row-cell">{{book.chapters}}</td>
+            <td class="content__table-row-cell">{{book.priority}}</td>
+            <td class="content__table-row-cell">
+              <button class="content__btn content__btn_delete" @click="deleteBook(book.id)"></button>
+              <button class="content__btn content__btn_edit" @click="editBook(book.id)"></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -36,6 +41,7 @@ export default {
   data() {
     return {
       books: [],
+      searchBook: "",
     };
   },
   created() {
@@ -49,6 +55,14 @@ export default {
   computed: {
     hasBooks() {
       return this.books.length > 0;
+    },
+    filteredBooks() {
+      if (!this.searchBook) {
+        return this.books;
+      }
+      return this.books.filter(book =>
+        book.name.toLowerCase().includes(this.searchBook.toLowerCase()),
+      );
     },
   },
   methods: {
@@ -69,6 +83,22 @@ export default {
   &__warn {
     font-size: 40px;
     text-align: center;
+  }
+
+  &__search-wrapper {
+    background-color: $accent;
+    @include edging();
+    padding: 6px 12px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  &__search {
+    padding: 6px 12px;
+    border-radius: 3px;
+    border: $border;
+    box-shadow: $box-shadow;
+    outline: none;
   }
 
   &__table {

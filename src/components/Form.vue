@@ -5,9 +5,9 @@
       <input class="form__input" type="text" placeholder="Ссылка" v-model.trim="bookData.link"> 
       <select v-model="bookData.priority" class="form__select">
         <option class="form__option" selected disabled hidden value="default">Выберете приоритет</option>
-        <option class="form__option" value="1">Высокий</option>
-        <option class="form__option" value="2">Средний</option>
-        <option class="form__option" value="3">Низкий</option>
+        <option class="form__option" value="hight">Высокий</option>
+        <option class="form__option" value="medium">Средний</option>
+        <option class="form__option" value="low">Низкий</option>
       </select>
       <button v-if="!editing" class="form__submit" @click.prevent="createBook">Создать</button>
       <button v-if="editing" class="form__submit" @click.prevent="editBook">Редактировать</button>
