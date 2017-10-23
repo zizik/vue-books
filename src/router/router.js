@@ -23,7 +23,11 @@ export default new Router({
       path: "/form",
       name: "Form",
       component: Form,
-      children: [{ path: "/:id", component: Form }],
+    },
+    {
+      path: "/form/:id",
+      name: "EditForm",
+      component: Form,
     },
   ],
 });

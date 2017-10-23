@@ -1,14 +1,15 @@
 <template>
   <form class="form">
-      <input class="form__input" type="text" placeholder="Введите название" v-model.trim="name"> 
-      <input class="form__input" type="number" placeholder="Глав прочитано" v-model.number="chapters"> 
-      <select v-model="priority" class="form__select">
+      <input class="form__input" type="text" placeholder="Введите название" v-model.trim="bookData.name"> 
+      <input class="form__input" type="number" placeholder="Глав прочитано" v-model.number="bookData.readedChapters"> 
+      <select v-model="bookData.priority" class="form__select">
         <option class="form__option" selected disabled hidden value="default">Выберете приоритет</option>
         <option class="form__option" value="1">Высокий</option>
         <option class="form__option" value="2">Средний</option>
         <option class="form__option" value="3">Низкий</option>
       </select>
-      <button class="form__submit" @click.prevent="createBook">Создать</button>
+      <button v-if="!editing" class="form__submit" @click.prevent="createBook">Создать</button>
+      <button v-if="editing" class="form__submit" @click.prevent="editBook">Редактировать</button>
   </form>
 </template>
 
@@ -18,32 +19,46 @@ import api from "../api/api";
 export default {
   data() {
     return {
-      name: "",
-      chapters: "",
-      priority: "default",
+      bookData: {
+        name: "",
+        readedChapters: "",
+        priority: "default",
+        allChapters: "0",
+      },
+      editing: false,
     };
+  },
+  created() {
+    if (this.$route.params.id) {
+      this.editing = true;
+      api.getData(this.$route.params.id).on("value", (snapshot) => {
+        const value = snapshot.val();
+        this.bookData = value;
+      });
+    }
   },
   methods: {
     validateForm() {
       let isValid = false;
-      if (this.name && this.chapters > 0 && this.priority !== "default") {
+      if (
+        this.bookData.name &&
+        this.bookData.readedChapters > 0 &&
+        this.bookData.priority !== "default"
+      ) {
         isValid = true;
       }
       return isValid;
     },
     createBook() {
       if (this.validateForm()) {
-        api
-          .setData({
-            name: this.name,
-            readedChapters: this.chapters,
-            priority: this.priority,
-            allChapters: "0",
-          })
-          .then(() => {
-            this.$router.push("/books");
-          });
+        api.setData(this.bookData).then(this.changeRoute);
       }
+    },
+    editBook() {
+      api.updateData(this.$route.params.id, this.bookData).then(this.changeRoute);
+    },
+    changeRoute() {
+      this.$router.push("/books");
     },
   },
 };

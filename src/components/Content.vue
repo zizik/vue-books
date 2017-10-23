@@ -18,7 +18,8 @@
           <td class="content__table-row-cell">{{book.readedChapters}}</td>
           <td class="content__table-row-cell">{{book.priority}}</td>
           <td class="content__table-row-cell">
-            <button class="content__delete-btn" @click="deleteBook(book.id)"></button>
+            <button class="content__btn content__btn_delete" @click="deleteBook(book.id)"></button>
+            <button class="content__btn content__btn_edit" @click="editBook(book.id)"></button>
           </td>
         </tr>
       </tbody>
@@ -51,6 +52,9 @@ export default {
   methods: {
     deleteBook(id) {
       api.removeData(id);
+    },
+    editBook(id) {
+      this.$router.push({ name: "EditForm", params: { id } });
     },
   },
 };
@@ -97,15 +101,24 @@ export default {
     background-color: #f6f6f6;
   }
 
-  &__delete-btn {
+  &__btn {
     width: 24px;
     height: 24px;
     padding: 0;
-    background: url("../assets/delete.svg") no-repeat center center;
-    background-size: 14px;
+    border: $border;
     display: inline-block;
     cursor: pointer;
-    border: $border;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 14px;
+
+    &_delete {
+      background-image: url("../assets/delete.svg");
+    }
+
+    &_edit {
+      background-image: url("../assets/edit.svg");
+    }
   }
 }
 </style>

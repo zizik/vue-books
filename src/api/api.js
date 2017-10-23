@@ -16,8 +16,8 @@ class FirebaseApi {
     this.booksRef = this.db.ref("books/manga");
   }
 
-  getData() {
-    return this.booksRef.once("value");
+  getData(id) {
+    return this.booksRef.child(id);
   }
 
   setData(data) {
@@ -26,6 +26,10 @@ class FirebaseApi {
 
   removeData(id) {
     return this.booksRef.child(id).remove();
+  }
+
+  updateData(id, data) {
+    return this.booksRef.child(id).update(data);
   }
 }
 
