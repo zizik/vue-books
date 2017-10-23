@@ -21,7 +21,7 @@ class FirebaseApi {
   }
 
   setData(data) {
-    this.booksRef.push(data);
+    return this.booksRef.push(data);
   }
 }
 

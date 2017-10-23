@@ -1,12 +1,12 @@
 <template>
   <form class="form">
-      <input class="form__input" type="text" placeholder="Введите название" v-model="name"> 
+      <input class="form__input" type="text" placeholder="Введите название" v-model.trim="name"> 
       <input class="form__input" type="number" placeholder="Глав прочитано" v-model.number="chapters"> 
       <select v-model="priority" class="form__select">
-        <option selected disabled hidden value="default">Выберете приоритет</option>
-        <option value="1">Высокий</option>
-        <option value="2">Средний</option>
-        <option value="3">Низкий</option>
+        <option class="form__option" selected disabled hidden value="default">Выберете приоритет</option>
+        <option class="form__option" value="1">Высокий</option>
+        <option class="form__option" value="2">Средний</option>
+        <option class="form__option" value="3">Низкий</option>
       </select>
       <button class="form__submit" @click.prevent="createBook">Создать</button>
   </form>
@@ -32,13 +32,17 @@ export default {
       return isValid;
     },
     createBook() {
-      if (this.isValid()) {
-        api.setData({
-          name: this.name,
-          readedChapters: this.chapters,
-          priority: this.priority,
-          allChapters: "0",
-        });
+      if (this.validateForm()) {
+        api
+          .setData({
+            name: this.name,
+            readedChapters: this.chapters,
+            priority: this.priority,
+            allChapters: "0",
+          })
+          .then(() => {
+            this.$router.push("/books");
+          });
       }
     },
   },
@@ -65,6 +69,10 @@ export default {
 
   &__select {
     outline: 0;
+  }
+
+  &__option {
+    padding: 6px 12px;
   }
 
   &__submit {
