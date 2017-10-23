@@ -3,7 +3,19 @@
     <div v-if="!hasBooks" class="content__warn">Книг нет</div>
     <div v-else>
       <div class="content__search-wrapper">
-        <input class="content__search" v-model="searchBook" type="text" placeholder="Найти книгу">
+        <label>
+          Найти книгу
+          <input class="content__search" v-model="searchBook" type="text" placeholder="Найти книгу">
+        </label>
+        <label>
+          Приоритет
+          <select v-model="priorityFilter">
+            <option value="all">Все</option>
+            <option value="hight">Высокий</option>
+            <option value="medium">Средний</option>
+            <option value="low">Низкий</option>
+          </select>
+        </label>
       </div>
       <table class="content__table">
         <thead class="content__table-head">
@@ -22,7 +34,7 @@
               </a>
             </td>
             <td class="content__table-row-cell">{{book.chapters}}</td>
-            <td class="content__table-row-cell">{{book.priority}}</td>
+            <td class="content__table-row-cell">{{book.priority | translatePriority}}</td>
             <td class="content__table-row-cell">
               <button class="content__btn content__btn_delete" @click="deleteBook(book.id)"></button>
               <button class="content__btn content__btn_edit" @click="editBook(book.id)"></button>
@@ -42,6 +54,7 @@ export default {
     return {
       books: [],
       searchBook: "",
+      priorityFilter: "all",
     };
   },
   created() {
@@ -57,11 +70,13 @@ export default {
       return this.books.length > 0;
     },
     filteredBooks() {
-      if (!this.searchBook) {
+      if (!this.searchBook && this.priorityFilter === "all") {
         return this.books;
       }
-      return this.books.filter(book =>
-        book.name.toLowerCase().includes(this.searchBook.toLowerCase()),
+      return this.books.filter(
+        book =>
+          book.name.toLowerCase().includes(this.searchBook.toLowerCase()) &&
+          (this.priorityFilter === "all" || this.priorityFilter === book.priority),
       );
     },
   },
@@ -71,6 +86,16 @@ export default {
     },
     editBook(id) {
       this.$router.push({ name: "EditForm", params: { id } });
+    },
+  },
+  filters: {
+    translatePriority(enPriority) {
+      const priorityValues = {
+        hight: "Высокий",
+        medium: "Средний",
+        low: "Низкий",
+      };
+      return priorityValues[enPriority];
     },
   },
 };
@@ -103,14 +128,14 @@ export default {
 
   &__table {
     width: 100%;
-    padding: 6px 12px;
     box-shadow: $box-shadow;
   }
 
   &__table-head-cell,
   &__table-row-cell {
     border: $border;
-    padding: 0.5em 1em;
+    padding: 6px 12px;
+    width: 50px;
   }
 
   &__table-head {
@@ -122,7 +147,7 @@ export default {
 
   &__table-head-cell {
     &_name {
-      width: 300px;
+      min-width: 300px;
     }
   }
 
