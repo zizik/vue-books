@@ -2,6 +2,7 @@
   <form class="form">
       <input class="form__input" type="text" placeholder="Введите название" v-model.trim="bookData.name"> 
       <input class="form__input" type="number" placeholder="Глав прочитано" v-model.number="bookData.readedChapters"> 
+      <input class="form__input" type="text" placeholder="Ссылка" v-model.trim="bookData.link"> 
       <select v-model="bookData.priority" class="form__select">
         <option class="form__option" selected disabled hidden value="default">Выберете приоритет</option>
         <option class="form__option" value="1">Высокий</option>
@@ -21,9 +22,10 @@ export default {
     return {
       bookData: {
         name: "",
+        link: "",
         readedChapters: "",
-        priority: "default",
         allChapters: "0",
+        priority: "default",
       },
       editing: false,
     };
@@ -42,6 +44,7 @@ export default {
       let isValid = false;
       if (
         this.bookData.name &&
+        this.bookData.link &&
         this.bookData.readedChapters > 0 &&
         this.bookData.priority !== "default"
       ) {

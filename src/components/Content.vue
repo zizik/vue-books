@@ -13,7 +13,11 @@
       </thead>
       <tbody>
         <tr class="content__table-row" v-for="book of books" v-bind:key="book.id">
-          <td class="content__table-row-cell">{{book.name}}</td>
+          <td class="content__table-row-cell">
+            <a class="content__table-link" :href="book.link">
+              {{book.name}}
+            </a>
+          </td>
           <td class="content__table-row-cell">{{book.readedChapters}}</td>
           <td class="content__table-row-cell">{{book.allChapters}}</td>
           <td class="content__table-row-cell">{{book.priority}}</td>
@@ -99,6 +103,15 @@ export default {
   }
   &__table-row:nth-child(odd) {
     background-color: #f6f6f6;
+  }
+
+  &__table-link {
+    color: $text-color;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   &__btn {
