@@ -39,6 +39,9 @@ export default {
     api.booksRef.on("child_added", (data) => {
       this.books.push({ id: data.key, ...data.val() });
     });
+    api.booksRef.on("child_removed", (data) => {
+      this.books = this.books.filter(book => book.id !== data.key);
+    });
   },
   computed: {
     hasBooks() {
@@ -48,7 +51,6 @@ export default {
   methods: {
     deleteBook(id) {
       api.removeData(id);
-      // console.log(id);
     },
   },
 };
