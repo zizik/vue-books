@@ -29,14 +29,13 @@ export default {
       editing: false,
     };
   },
+  watch: {
+    $route() {
+      this.setFormStatus();
+    },
+  },
   created() {
-    if (this.$route.params.id) {
-      this.editing = true;
-      api.getData(this.$route.params.id).on("value", (snapshot) => {
-        const value = snapshot.val();
-        this.bookData = value;
-      });
-    }
+    this.setFormStatus();
   },
   methods: {
     validateForm() {
@@ -61,6 +60,23 @@ export default {
     },
     changeRoute() {
       this.$router.push("/books");
+    },
+    setFormStatus() {
+      if (this.$route.params.id) {
+        this.editing = true;
+        api.getData(this.$route.params.id).on("value", (snapshot) => {
+          const value = snapshot.val();
+          this.bookData = value;
+        });
+      } else {
+        this.editing = false;
+        this.bookData = {
+          name: "",
+          link: "",
+          chapters: "",
+          priority: "default",
+        };
+      }
     },
   },
 };
