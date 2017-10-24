@@ -15,9 +15,9 @@
             Приоритет:
             <select class="content__priority" v-model="priorityFilter">
               <option value="all">Все</option>
-              <option value="hight">Высокий</option>
-              <option value="medium">Средний</option>
-              <option value="low">Низкий</option>
+              <option value="1">Высокий</option>
+              <option value="2">Средний</option>
+              <option value="3">Низкий</option>
             </select>
           </label>
         </div>
@@ -65,16 +65,16 @@ export default {
   },
   created() {
     this.setLoading(true);
-    api.booksRef.once("value", data => {
+    api.booksRef.once("value", (data) => {
       if (!data.val()) {
         this.setLoading(false);
       }
     });
-    api.booksRef.on("child_added", data => {
+    api.booksRef.on("child_added", (data) => {
       this.books.push({ id: data.key, ...data.val() });
       this.setLoading(false);
     });
-    api.booksRef.on("child_removed", data => {
+    api.booksRef.on("child_removed", (data) => {
       this.books = this.books.filter(book => book.id !== data.key);
     });
   },
@@ -116,9 +116,9 @@ export default {
   filters: {
     translatePriority(enPriority) {
       const priorityValues = {
-        hight: "Высокий",
-        medium: "Средний",
-        low: "Низкий",
+        1: "Высокий",
+        2: "Средний",
+        3: "Низкий",
       };
       return priorityValues[enPriority];
     },
