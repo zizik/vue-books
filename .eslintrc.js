@@ -43,5 +43,13 @@ module.exports = {
     // my rules
     quotes: ["error", "double"],
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "no-shadow": ["error", { builtinGlobals: true, hoist: "functions", allow: ["state"] }],
+    "no-param-reassign": [
+      "error",
+      {
+        props: true,
+        ignorePropertyModificationsFor: ["state"],
+      },
+    ],
   },
 };
