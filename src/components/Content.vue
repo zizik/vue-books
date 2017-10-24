@@ -61,25 +61,20 @@ export default {
       books: [],
       searchBook: "",
       priorityFilter: "all",
-      // isLoading: false,
     };
   },
   created() {
-    // this.isLoading = true;
     this.setLoading(true);
-    // console.log(this.getLoading());
-    api.booksRef.once("value", (data) => {
+    api.booksRef.once("value", data => {
       if (!data.val()) {
-        // this.isLoading = false;
         this.setLoading(false);
       }
     });
-    api.booksRef.on("child_added", (data) => {
+    api.booksRef.on("child_added", data => {
       this.books.push({ id: data.key, ...data.val() });
       this.setLoading(false);
-      // this.isLoading = false;
     });
-    api.booksRef.on("child_removed", (data) => {
+    api.booksRef.on("child_removed", data => {
       this.books = this.books.filter(book => book.id !== data.key);
     });
   },
