@@ -1,47 +1,52 @@
 <template>
   <div class="content">
-    <div v-if="!hasBooks" class="content__warn">Книг нет</div>
+    <div v-if="isLoading" class="content__img-wrapper">
+      <img src="../assets/loader.gif" alt="loader">
+    </div>
     <div v-else>
-      <div class="content__search-wrapper">
-        <label class="content__label">
-          Найти книгу:
-          <input class="content__search" v-model="searchBook" type="text" placeholder="Найти книгу">
-        </label>
-        <label class="content__label">
-          Приоритет:
-          <select class="content__priority" v-model="priorityFilter">
-            <option value="all">Все</option>
-            <option value="hight">Высокий</option>
-            <option value="medium">Средний</option>
-            <option value="low">Низкий</option>
-          </select>
-        </label>
+      <div v-if="!hasBooks" class="content__warn">Книг нет</div>
+      <div v-else>
+        <div class="content__search-wrapper">
+          <label class="content__label">
+            Найти книгу:
+            <input class="content__search" v-model="searchBook" type="text" placeholder="Найти книгу">
+          </label>
+          <label class="content__label">
+            Приоритет:
+            <select class="content__priority" v-model="priorityFilter">
+              <option value="all">Все</option>
+              <option value="hight">Высокий</option>
+              <option value="medium">Средний</option>
+              <option value="low">Низкий</option>
+            </select>
+          </label>
+        </div>
+        <table class="content__table">
+          <thead class="content__table-head">
+            <tr>
+              <th class="content__table-head-cell content__table-head-cell_name">Название</th>
+              <th class="content__table-head-cell">Прочитано</th>
+              <th class="content__table-head-cell">Приоритет</th>
+              <th class="content__table-head-cell">Действия</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="content__table-row" v-for="book of filteredBooks" v-bind:key="book.id">
+              <td class="content__table-row-cell">
+                <a class="content__table-link" :href="book.link">
+                  {{book.name}}
+                </a>
+              </td>
+              <td class="content__table-row-cell">{{book.chapters}}</td>
+              <td class="content__table-row-cell">{{book.priority | translatePriority}}</td>
+              <td class="content__table-row-cell">
+                <button class="content__btn content__btn_delete" @click="deleteBook(book.id)"></button>
+                <button class="content__btn content__btn_edit" @click="editBook(book.id)"></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <table class="content__table">
-        <thead class="content__table-head">
-          <tr>
-            <th class="content__table-head-cell content__table-head-cell_name">Manga Name</th>
-            <th class="content__table-head-cell">Readed</th>
-            <th class="content__table-head-cell">Priority</th>
-            <th class="content__table-head-cell">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="content__table-row" v-for="book of filteredBooks" v-bind:key="book.id">
-            <td class="content__table-row-cell">
-              <a class="content__table-link" :href="book.link">
-                {{book.name}}
-              </a>
-            </td>
-            <td class="content__table-row-cell">{{book.chapters}}</td>
-            <td class="content__table-row-cell">{{book.priority | translatePriority}}</td>
-            <td class="content__table-row-cell">
-              <button class="content__btn content__btn_delete" @click="deleteBook(book.id)"></button>
-              <button class="content__btn content__btn_edit" @click="editBook(book.id)"></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </div>
 </template>
@@ -55,11 +60,14 @@ export default {
       books: [],
       searchBook: "",
       priorityFilter: "all",
+      isLoading: false,
     };
   },
   created() {
+    this.isLoading = true;
     api.booksRef.on("child_added", (data) => {
       this.books.push({ id: data.key, ...data.val() });
+      this.isLoading = false;
     });
     api.booksRef.on("child_removed", (data) => {
       this.books = this.books.filter(book => book.id !== data.key);
@@ -104,6 +112,10 @@ export default {
 <style lang="scss">
 .content {
   flex-grow: 1;
+
+  &__img-wrapper {
+    text-align: center;
+  }
 
   &__warn {
     font-size: 40px;
