@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import api from "../api/api";
 
 export default {
@@ -60,19 +61,23 @@ export default {
       books: [],
       searchBook: "",
       priorityFilter: "all",
-      isLoading: false,
+      // isLoading: false,
     };
   },
   created() {
-    this.isLoading = true;
+    // this.isLoading = true;
+    this.setLoading(true);
+    // console.log(this.getLoading());
     api.booksRef.once("value", (data) => {
       if (!data.val()) {
-        this.isLoading = false;
+        // this.isLoading = false;
+        this.setLoading(false);
       }
     });
     api.booksRef.on("child_added", (data) => {
       this.books.push({ id: data.key, ...data.val() });
-      this.isLoading = false;
+      this.setLoading(false);
+      // this.isLoading = false;
     });
     api.booksRef.on("child_removed", (data) => {
       this.books = this.books.filter(book => book.id !== data.key);
@@ -82,6 +87,9 @@ export default {
     api.booksRef.off();
   },
   computed: {
+    isLoading() {
+      return this.getLoading();
+    },
     hasBooks() {
       return this.books.length > 0;
     },
@@ -97,6 +105,12 @@ export default {
     },
   },
   methods: {
+    ...mapGetters({
+      getLoading: "getLoading",
+    }),
+    ...mapActions({
+      setLoading: "setLoading",
+    }),
     deleteBook(id) {
       api.removeData(id);
     },
