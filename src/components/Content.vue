@@ -64,11 +64,15 @@ export default {
     };
   },
   created() {
-    // this.isLoading = true;
+    this.isLoading = true;
+    api.booksRef.once("value", (data) => {
+      if (!data.val()) {
+        this.isLoading = false;
+      }
+    });
     api.booksRef.on("child_added", (data) => {
-      console.log("ADDED");
       this.books.push({ id: data.key, ...data.val() });
-      // this.isLoading = false;
+      this.isLoading = false;
     });
     api.booksRef.on("child_removed", (data) => {
       this.books = this.books.filter(book => book.id !== data.key);
