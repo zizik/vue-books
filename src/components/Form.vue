@@ -1,14 +1,18 @@
 <template>
   <form class="form">
       <input class="form__input" v-validate="'required'" type="text" name="name" placeholder="Введите название" v-model.trim="bookData.name"> 
+      <span class="form__error" v-if="errors.has('name')" v-text="errors.first('name')"></span>
       <input class="form__input" v-validate="'required'" type="number" name="chapters" placeholder="Глав прочитано" v-model.number="bookData.chapters"> 
+      <span class="form__error" v-if="errors.has('chapters')" v-text="errors.first('chapters')"></span>
       <input class="form__input" v-validate="'required'" type="text" name="link" placeholder="Ссылка" v-model.trim="bookData.link"> 
+      <span class="form__error" v-if="errors.has('link')" v-text="errors.first('link')"></span>
       <select v-model="bookData.priority" v-validate="'required'" name="priority" class="form__select">
-        <option class="form__option" selected disabled hidden value="default">Выберете приоритет</option>
+        <!-- <option class="form__option" selected disabled hidden value="default">Выберете приоритет</option> -->
         <option class="form__option" value="1">Высокий</option>
         <option class="form__option" value="2">Средний</option>
         <option class="form__option" value="3">Низкий</option>
       </select>
+      <span class="form__error" v-if="errors.has('priority')" v-text="errors.first('priority')"></span>
       <button v-if="!editing" class="form__submit" @click.prevent="createBook">Создать</button>
       <button v-else class="form__submit" @click.prevent="editBook">Редактировать</button>
   </form>
@@ -24,7 +28,8 @@ export default {
         name: "",
         link: "",
         chapters: "",
-        priority: "default",
+        // priority: "default",
+        priority: "",
       },
       editing: false,
     };
@@ -42,7 +47,8 @@ export default {
       return Object.keys(this.fields).every(key => this.fields[key].valid);
     },
     createBook() {
-      console.log(this.isFormValid());
+      // this.isFormValid();
+      this.$validator.validateAll();
       // if (this.validateForm()) {
       //   api.setData(this.bookData).then(this.changeRoute);
       // }
@@ -66,7 +72,8 @@ export default {
           name: "",
           link: "",
           chapters: "",
-          priority: "default",
+          priority: "",
+          // priority: "default",
         };
       }
     },
@@ -85,6 +92,13 @@ export default {
   &__select {
     padding: 6px 12px;
     margin-bottom: 20px;
+  }
+
+  &__error {
+    display: block;
+    font-size: 14px;
+    color: red;
+    margin-bottom: 10px;
   }
 
   &__input {
