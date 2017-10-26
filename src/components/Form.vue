@@ -1,9 +1,9 @@
 <template>
   <form class="form">
-      <input class="form__input" type="text" placeholder="Введите название" v-model.trim="bookData.name"> 
-      <input class="form__input" type="number" placeholder="Глав прочитано" v-model.number="bookData.chapters"> 
-      <input class="form__input" type="text" placeholder="Ссылка" v-model.trim="bookData.link"> 
-      <select v-model="bookData.priority" class="form__select">
+      <input class="form__input" type="text" name="name" placeholder="Введите название" v-model.trim="bookData.name"> 
+      <input class="form__input" type="number" name="chapters" placeholder="Глав прочитано" v-model.number="bookData.chapters"> 
+      <input class="form__input" type="text" name="link" placeholder="Ссылка" v-model.trim="bookData.link"> 
+      <select v-model="bookData.priority" name="priority" class="form__select">
         <option class="form__option" selected disabled hidden value="default">Выберете приоритет</option>
         <option class="form__option" value="1">Высокий</option>
         <option class="form__option" value="2">Средний</option>
