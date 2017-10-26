@@ -6,7 +6,7 @@
       <span class="form__error" v-if="errors.has('chapters')" v-text="errors.first('chapters')"></span>
       <input class="form__input" v-validate="'required'" type="text" name="link" placeholder="Ссылка" v-model.trim="bookData.link"> 
       <span class="form__error" v-if="errors.has('link')" v-text="errors.first('link')"></span>
-      <select v-model="bookData.priority" v-validate="'required'" name="priority" class="form__select">
+      <select v-model="bookData.priority" v-validate="'required|in:1,2,3'" name="priority" class="form__select">
         <option class="form__option" selected disabled hidden value="">Выберете приоритет</option>
         <option class="form__option" value="1">Высокий</option>
         <option class="form__option" value="2">Средний</option>
@@ -60,17 +60,13 @@ export default {
       if (this.$route.params.id) {
         this.editing = true;
         api.getData(this.$route.params.id).on("value", (snapshot) => {
-          const value = snapshot.val();
-          this.bookData = value;
+          this.bookData = snapshot.val();
         });
-      } else {
+      } else if (this.editing) {
         this.editing = false;
-        this.bookData = {
-          name: "",
-          link: "",
-          chapters: "",
-          priority: "",
-        };
+        Object.keys(this.bookData).forEach((key) => {
+          this.bookData[key] = "";
+        });
         this.$validator.reset();
       }
     },
