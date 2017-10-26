@@ -1,5 +1,5 @@
 <template>
-  <form class="form">
+  <form class="form" @input="this.$validator.reset">
       <input class="form__input" v-validate="'required'" type="text" name="name" placeholder="Введите название" v-model.trim="bookData.name"> 
       <span class="form__error" v-if="errors.has('name')" v-text="errors.first('name')"></span>
       <input class="form__input" v-validate="'required'" type="number" name="chapters" placeholder="Глав прочитано" v-model.number="bookData.chapters"> 
@@ -7,7 +7,7 @@
       <input class="form__input" v-validate="'required'" type="text" name="link" placeholder="Ссылка" v-model.trim="bookData.link"> 
       <span class="form__error" v-if="errors.has('link')" v-text="errors.first('link')"></span>
       <select v-model="bookData.priority" v-validate="'required'" name="priority" class="form__select">
-        <!-- <option class="form__option" selected disabled hidden value="default">Выберете приоритет</option> -->
+        <option class="form__option" selected disabled hidden value="">Выберете приоритет</option>
         <option class="form__option" value="1">Высокий</option>
         <option class="form__option" value="2">Средний</option>
         <option class="form__option" value="3">Низкий</option>
@@ -28,7 +28,6 @@ export default {
         name: "",
         link: "",
         chapters: "",
-        // priority: "default",
         priority: "",
       },
       editing: false,
@@ -44,14 +43,13 @@ export default {
   },
   methods: {
     isFormValid() {
-      return Object.keys(this.fields).every(key => this.fields[key].valid);
+      this.$validator.validateAll();
+      return !(this.errors.items.length > 0);
     },
     createBook() {
-      // this.isFormValid();
-      this.$validator.validateAll();
-      // if (this.validateForm()) {
-      //   api.setData(this.bookData).then(this.changeRoute);
-      // }
+      if (this.isFormValid()) {
+        api.setData(this.bookData).then(this.changeRoute);
+      }
     },
     editBook() {
       api.updateData(this.$route.params.id, this.bookData).then(this.changeRoute);
@@ -73,7 +71,6 @@ export default {
           link: "",
           chapters: "",
           priority: "",
-          // priority: "default",
         };
       }
     },
