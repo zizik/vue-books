@@ -13,8 +13,8 @@
         <option class="form__option" value="3">Низкий</option>
       </select>
       <span class="form__error" v-if="errors.has('priority')" v-text="errors.first('priority')"></span>
-      <button v-if="!editing" class="form__submit" @click.prevent="createBook">Создать</button>
-      <button v-else class="form__submit" @click.prevent="editBook">Редактировать</button>
+      <button v-if="isEditing" class="form__submit" @click.prevent="editBook">Редактировать</button>
+      <button v-else class="form__submit" @click.prevent="createBook">Создать</button>
   </form>
 </template>
 
@@ -30,7 +30,7 @@ export default {
         chapters: "",
         priority: "",
       },
-      editing: false,
+      isEditing: false,
     };
   },
   watch: {
@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     createBook() {
-      window.vvv = this.$validator;
       this.$validator.validateAll().then((result) => {
         if (result) {
           api.setData(this.bookData).then(this.changeRoute);
@@ -58,12 +57,12 @@ export default {
     },
     setFormStatus() {
       if (this.$route.params.id) {
-        this.editing = true;
+        this.isEditing = true;
         api.getData(this.$route.params.id).on("value", (snapshot) => {
           this.bookData = snapshot.val();
         });
-      } else if (this.editing) {
-        this.editing = false;
+      } else if (this.isEditing) {
+        this.isEditing = false;
         Object.keys(this.bookData).forEach((key) => {
           this.bookData[key] = "";
         });
