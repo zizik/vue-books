@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     createBook() {
+      window.vvv = this.$validator;
       this.$validator.validateAll().then((result) => {
         if (result) {
           api.setData(this.bookData).then(this.changeRoute);
@@ -70,6 +71,7 @@ export default {
           chapters: "",
           priority: "",
         };
+        this.$validator.reset();
       }
     },
   },
