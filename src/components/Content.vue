@@ -89,10 +89,13 @@ export default {
       return this.books.length > 0;
     },
     filteredBooks() {
+      const sortedBooks = [...this.books].sort(
+        (a, b) => (a.name > b.name || a.priority > b.priority ? 1 : -1),
+      );
       if (!this.searchBook && this.priorityFilter === "all") {
-        return this.books;
+        return sortedBooks;
       }
-      return this.books.filter(
+      return sortedBooks.filter(
         book =>
           book.name.toLowerCase().includes(this.searchBook.toLowerCase()) &&
           (this.priorityFilter === "all" || this.priorityFilter === book.priority),
