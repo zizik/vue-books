@@ -38,22 +38,14 @@ export default {
     this.setFormStatus();
   },
   methods: {
-    validateForm() {
-      let isValid = false;
-      if (
-        this.bookData.name &&
-        this.bookData.link &&
-        this.bookData.chapters > 0 &&
-        this.bookData.priority !== "default"
-      ) {
-        isValid = true;
-      }
-      return isValid;
+    isFormValid() {
+      return Object.keys(this.fields).every(key => this.fields[key].valid);
     },
     createBook() {
-      if (this.validateForm()) {
-        api.setData(this.bookData).then(this.changeRoute);
-      }
+      console.log(this.isFormValid());
+      // if (this.validateForm()) {
+      //   api.setData(this.bookData).then(this.changeRoute);
+      // }
     },
     editBook() {
       api.updateData(this.$route.params.id, this.bookData).then(this.changeRoute);
