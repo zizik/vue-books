@@ -42,14 +42,12 @@ export default {
     this.setFormStatus();
   },
   methods: {
-    isFormValid() {
-      this.$validator.validateAll();
-      return !(this.errors.items.length > 0);
-    },
     createBook() {
-      if (this.isFormValid()) {
-        api.setData(this.bookData).then(this.changeRoute);
-      }
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          api.setData(this.bookData).then(this.changeRoute);
+        }
+      });
     },
     editBook() {
       api.updateData(this.$route.params.id, this.bookData).then(this.changeRoute);
