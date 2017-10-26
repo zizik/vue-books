@@ -7,7 +7,7 @@ import router from "./router/router";
 import store from "./store/store";
 
 Vue.config.productionTip = false;
-Vue.use(VeeValidate);
+Vue.use(VeeValidate, { events: "" });
 
 /* eslint-disable no-new */
 new Vue({
