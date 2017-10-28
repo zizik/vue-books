@@ -13,12 +13,16 @@
 <script>
 import Header from "./components/Header";
 import Navigation from "./components/Navigation";
+import auth from "./firebase/auth/auth";
 
 export default {
   name: "app",
   components: {
     mainHeader: Header,
     mainNavigation: Navigation,
+  },
+  created() {
+    console.log(auth.isLogged);
   },
 };
 </script>
