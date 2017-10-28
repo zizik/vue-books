@@ -22,7 +22,9 @@ export default {
     mainNavigation: Navigation,
   },
   created() {
-    console.log(auth.isLogged);
+    if (!auth.isLogged) {
+      this.$router.push({ name: "SignIn" });
+    }
   },
 };
 </script>
