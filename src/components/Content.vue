@@ -53,7 +53,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import api from "../api/api";
+import api from "../firebase/api/api";
 
 export default {
   data() {
