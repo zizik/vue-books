@@ -22,9 +22,11 @@ export default {
     mainNavigation: Navigation,
   },
   created() {
-    if (!auth.isLogged) {
-      this.$router.push({ name: "SignIn" });
-    }
+    auth.checkUser().then(isLogged => {
+      if (!isLogged) {
+        this.$router.push({ name: "SignIn" });
+      }
+    });
   },
 };
 </script>

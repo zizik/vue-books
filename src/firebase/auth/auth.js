@@ -8,7 +8,7 @@ class User {
   }
 
   async checkUser() {
-    await new Promise(resolve => {
+    const isLogged = await new Promise(resolve => {
       this.auth.onAuthStateChanged(user => {
         if (user) {
           this.isLogged = true;
@@ -17,10 +17,10 @@ class User {
           this.isLogged = false;
           console.log("no user");
         }
-        resolve();
+        resolve(this.isLogged);
       });
     });
-    return this.isLogged;
+    return isLogged;
   }
 
   createUser(email, password) {
@@ -39,15 +39,6 @@ class User {
 
   signIn(email, password) {
     return this.auth.signInWithEmailAndPassword(email, password);
-    // .then(good => console.log("good", good))
-    // .catch(error => {
-    //   // Handle Errors here.
-    //   const errorCode = error.code;
-    //   const errorMessage = error.message;
-    //   console.log(errorCode);
-    //   console.log(errorMessage);
-    //   // ...
-    // })
   }
 
   signOut() {
