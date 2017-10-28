@@ -51,5 +51,6 @@ module.exports = {
         ignorePropertyModificationsFor: ["state"],
       },
     ],
+    "arrow-parens": "off",
   },
 };
