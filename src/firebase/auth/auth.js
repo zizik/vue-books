@@ -5,7 +5,6 @@ class User {
     this.auth = firebase.auth();
     this.isLogged = false;
     this.checkUser();
-    console.log(this.isLogged);
   }
 
   async checkUser() {
@@ -38,20 +37,17 @@ class User {
       });
   }
 
-  authUser(email, password) {
-    return (
-      this.auth
-        .signInWithEmailAndPassword(email, password)
-        // .then(good => console.log("good", good))
-        .catch(error => {
-          // Handle Errors here.
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode);
-          console.log(errorMessage);
-          // ...
-        })
-    );
+  signIn(email, password) {
+    return this.auth.signInWithEmailAndPassword(email, password);
+    // .then(good => console.log("good", good))
+    // .catch(error => {
+    //   // Handle Errors here.
+    //   const errorCode = error.code;
+    //   const errorMessage = error.message;
+    //   console.log(errorCode);
+    //   console.log(errorMessage);
+    //   // ...
+    // })
   }
 
   signOut() {
