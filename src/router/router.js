@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Content from "../components/Content";
 import Form from "../components/Form";
+import SignIn from "../components/SignIn";
 
 Vue.use(Router);
 
@@ -27,6 +28,11 @@ export default new Router({
       path: "/form/:id",
       name: "EditForm",
       component: Form,
+    },
+    {
+      path: "/signin",
+      name: "SignIn",
+      component: SignIn,
     },
   ],
 });
