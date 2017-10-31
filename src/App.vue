@@ -26,7 +26,7 @@ export default {
     if (auth.getUser()) {
       this.setUser(auth.getUser().uid);
     } else {
-      this.$router.push({ name: "SignIn" });
+      this.$router.push({ name: "Home" });
     }
   },
   methods: {
