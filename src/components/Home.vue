@@ -23,10 +23,20 @@ export default {
   },
   methods: {
     logIn() {
-      auth.signIn({
-        email: this.email,
-        password: this.password,
-      });
+      auth
+        .signIn({
+          email: this.email,
+          password: this.password,
+        })
+        .then(user => {
+          if (user) {
+            this.$router.replace({ name: "Books" });
+          }
+        })
+        .catch(err => {
+          // TODO: Использовать валидацию что бы вставить ошибки в шаблон
+          console.log(err);
+        });
     },
   },
 };
