@@ -5,15 +5,21 @@ import VeeValidate from "vee-validate";
 import App from "./App";
 import router from "./router/router";
 import store from "./store/store";
+import auth from "./firebase/auth/auth";
 
 Vue.config.productionTip = false;
 Vue.use(VeeValidate, { events: "" });
+let app;
 
-/* eslint-disable no-new */
-new Vue({
-  el: "#app",
-  router,
-  store,
-  template: "<App/>",
-  components: { App },
+auth.auth.onAuthStateChanged(() => {
+  if (!app) {
+    /* eslint-disable no-new */
+    new Vue({
+      el: "#app",
+      router,
+      store,
+      template: "<App/>",
+      components: { App },
+    });
+  }
 });
