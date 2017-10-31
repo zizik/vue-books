@@ -6,7 +6,7 @@ class User {
     this.isLogged = false;
   }
 
-  createUser(email, password) {
+  createUser({ email, password }) {
     this.auth
       .createUserWithEmailAndPassword(email, password)
       .then(good => console.log("good", good))
@@ -20,7 +20,7 @@ class User {
       });
   }
 
-  signIn(email, password) {
+  signIn({ email, password }) {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
 

@@ -12,16 +12,21 @@
 </template>
 
 <script>
+import auth from "../firebase/auth/auth";
+
 export default {
   data() {
     return {
-      email: "",
-      password: "",
+      email: "fff@gmail.com",
+      password: "123456",
     };
   },
   methods: {
     logIn() {
-      console.log(this.email, this.password);
+      auth.signIn({
+        email: this.email,
+        password: this.password,
+      });
     },
   },
 };
