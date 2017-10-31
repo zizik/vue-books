@@ -1,9 +1,9 @@
 <template>
-  <form>
+  <form @submit.prevent="logIn">
     <p v-if="error" v-text="error"></p>
     <input type="text" v-model="email" placeholder="email">
-    <input type="text" v-model="password" placeholder="password">
-    <button @click.prevent="logIn">Залогироваться</button>
+    <input type="password" v-model="password" placeholder="password">
+    <button>Залогироваться</button>
   </form>
 </template>
 
@@ -21,7 +21,10 @@ export default {
   methods: {
     logIn() {
       auth
-        .signIn(this.email, this.password)
+        .signIn({
+          email: this.email,
+          password: this.password,
+        })
         .then(() => this.$router.push({ name: "Books" }))
         .catch(({ message }) => {
           this.error = message;
