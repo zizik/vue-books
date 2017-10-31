@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import api from "../firebase/api/api";
 
 export default {
@@ -39,11 +40,13 @@ export default {
     },
   },
   created() {
+    api.setRef(this.getUser());
     this.setFormStatus();
   },
   methods: {
+    ...mapGetters(["getUser"]),
     createBook() {
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then(result => {
         if (result) {
           api.setData(this.bookData).then(this.changeRoute);
         }
@@ -58,12 +61,12 @@ export default {
     setFormStatus() {
       if (this.$route.params.id) {
         this.isEditing = true;
-        api.getData(this.$route.params.id).on("value", (snapshot) => {
+        api.getData(this.$route.params.id).on("value", snapshot => {
           this.bookData = snapshot.val();
         });
       } else if (this.isEditing) {
         this.isEditing = false;
-        Object.keys(this.bookData).forEach((key) => {
+        Object.keys(this.bookData).forEach(key => {
           this.bookData[key] = "";
         });
         this.$validator.reset();

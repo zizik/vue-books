@@ -11,7 +11,10 @@ Vue.config.productionTip = false;
 Vue.use(VeeValidate, { events: "" });
 let app;
 
-auth.auth.onAuthStateChanged(() => {
+auth.auth.onAuthStateChanged(user => {
+  if (user) {
+    auth.user = user.uid;
+  }
   if (!app) {
     /* eslint-disable no-new */
     new Vue({

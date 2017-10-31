@@ -4,24 +4,26 @@ class User {
   constructor() {
     this.auth = firebase.auth();
     this.isLogged = false;
-    this.checkUser();
+    this.user = "";
+    // this.checkUser();
   }
 
-  async checkUser() {
-    const isLogged = await new Promise(resolve => {
-      this.auth.onAuthStateChanged(user => {
-        if (user) {
-          this.isLogged = true;
-          console.log("has user");
-        } else {
-          this.isLogged = false;
-          console.log("no user");
-        }
-        resolve(this.isLogged);
-      });
-    });
-    return isLogged;
-  }
+  // async checkUser() {
+  //   const userId = await new Promise(resolve => {
+  //     this.auth.onAuthStateChanged(user => {
+  //       if (user) {
+  //         this.isLogged = true;
+  //         console.log("has user", user);
+  //         resolve(user.uid);
+  //       } else {
+  //         this.isLogged = false;
+  //         console.log("no user");
+  //         resolve();
+  //       }
+  //     });
+  //   });
+  //   return userId;
+  // }
 
   createUser(email, password) {
     this.auth
@@ -53,7 +55,7 @@ class User {
   }
 
   getUser() {
-    return this.auth.currentUser.uid;
+    return this.auth.currentUser;
   }
 }
 

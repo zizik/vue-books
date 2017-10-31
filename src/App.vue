@@ -23,13 +23,11 @@ export default {
     mainNavigation: Navigation,
   },
   created() {
-    auth.checkUser().then(isLogged => {
-      if (!isLogged) {
-        this.$router.push({ name: "SignIn" });
-      } else {
-        this.setUser(auth.getUser());
-      }
-    });
+    if (auth.getUser()) {
+      this.setUser(auth.getUser().uid);
+    } else {
+      this.$router.push({ name: "SignIn" });
+    }
   },
   methods: {
     ...mapActions(["setUser"]),

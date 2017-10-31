@@ -3,7 +3,16 @@ import firebase from "../firebase";
 class FirebaseApi {
   constructor() {
     this.db = firebase.database();
+    this.user = firebase.auth().currentUser;
+    // this.booksRef = this.db.ref(`books/manga/${this.user.uid}`);
     this.booksRef = this.db.ref("books/manga");
+    // if (this.user) {
+    // }
+    console.log(this.booksRef);
+  }
+
+  setRef(id) {
+    this.booksRef = this.db.ref(`books/manga/${id}`);
   }
 
   getData(id) {
