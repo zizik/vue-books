@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import Header from "./components/Header";
 import Navigation from "./components/Navigation";
 import auth from "./firebase/auth/auth";
@@ -26,9 +27,14 @@ export default {
       if (!isLogged) {
         this.$router.push({ name: "SignIn" });
       } else {
-        console.log(auth.getUser());
+        this.setUser(auth.getUser());
       }
     });
+  },
+  methods: {
+    ...mapActions({
+      setUser: "setUser",
+    }),
   },
 };
 </script>
