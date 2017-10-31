@@ -1,14 +1,12 @@
 <template>
   <div class="home">
-    <div class="container">
-      <form class="home__form" @submit.prevent="logIn">
-        <h1 class="home__greet">Добро пожаловать</h1>
-        <input class="home__input" type="text" v-model="email" placeholder="Введите почту">
-        <input class="home__input" type="password" v-model="password" placeholder="Введите пароль">
-        <button class="home__submit">Зайти на сайт</button>
-        <p class="home__message">Нет аккаунта? <router-link class="home__link" :to="{name: 'SignIn'}">Create an account</router-link></p>
-      </form>
-    </div>
+    <form class="home__form" @submit.prevent="logIn">
+      <h1 class="home__greet">Добро пожаловать</h1>
+      <input class="home__input" type="text" v-model="email" placeholder="Введите почту">
+      <input class="home__input" type="password" v-model="password" placeholder="Введите пароль">
+      <button class="home__submit">Зайти на сайт</button>
+      <p class="home__message">Нет аккаунта? <router-link class="home__link" :to="{name: 'SignIn'}">Create an account</router-link></p>
+    </form>
   </div>
 </template>
 
@@ -45,6 +43,8 @@ export default {
 
 <style lang="scss">
 .home {
+  flex-grow: 1;
+
   &__greet {
     @include helvetica(24px);
     margin-bottom: 30px;
