@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Content from "../components/Content";
 import Form from "../components/Form";
 import SignIn from "../components/SignIn";
+import Home from "../components/Home";
 
 Vue.use(Router);
 
@@ -11,8 +12,9 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "App",
-      redirect: "/books",
+      name: "Home",
+      component: Home,
+      // redirect: "/books",
     },
     {
       path: "/books",
