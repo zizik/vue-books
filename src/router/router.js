@@ -2,8 +2,9 @@ import Vue from "vue";
 import Router from "vue-router";
 import Content from "../components/Content";
 import Form from "../components/Form";
-import SignIn from "../components/SignIn";
-import Home from "../components/Home";
+// import SignIn from "../components/SignIn";
+// import Login from "../components/Login";
+import Login from "../components/Login";
 
 Vue.use(Router);
 
@@ -12,8 +13,8 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "Home",
-      component: Home,
+      name: "Login",
+      component: Login,
       // redirect: "/books",
     },
     {
@@ -34,7 +35,7 @@ export default new Router({
     {
       path: "/signin",
       name: "SignIn",
-      component: SignIn,
+      component: Login,
     },
   ],
 });
