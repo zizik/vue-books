@@ -4,26 +4,7 @@ class User {
   constructor() {
     this.auth = firebase.auth();
     this.isLogged = false;
-    this.user = "";
-    // this.checkUser();
   }
-
-  // async checkUser() {
-  //   const userId = await new Promise(resolve => {
-  //     this.auth.onAuthStateChanged(user => {
-  //       if (user) {
-  //         this.isLogged = true;
-  //         console.log("has user", user);
-  //         resolve(user.uid);
-  //       } else {
-  //         this.isLogged = false;
-  //         console.log("no user");
-  //         resolve();
-  //       }
-  //     });
-  //   });
-  //   return userId;
-  // }
 
   createUser(email, password) {
     this.auth
