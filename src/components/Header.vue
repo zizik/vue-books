@@ -2,7 +2,7 @@
   <header class="header">
     <div class="container">
       <div class="header__name">
-        <router-link class="header__link" :to="{name: 'Home'}" href="/books">{{header}}</router-link>
+        <router-link class="header__link" :to="{name: 'Login'}">{{header}}</router-link>
         <button @click="signOut">Разлогин</button>
       </div>
     </div>
