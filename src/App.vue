@@ -25,6 +25,8 @@ export default {
     auth.checkUser().then(isLogged => {
       if (!isLogged) {
         this.$router.push({ name: "SignIn" });
+      } else {
+        console.log(auth.getUser());
       }
     });
   },

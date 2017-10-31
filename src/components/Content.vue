@@ -54,6 +54,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import api from "../firebase/api/api";
+// import auth from "../firebase/auth/auth";
 
 export default {
   data() {
@@ -64,17 +65,18 @@ export default {
     };
   },
   created() {
+    // console.log(auth.getUser());
     this.setLoading(true);
-    api.booksRef.once("value", (data) => {
+    api.booksRef.once("value", data => {
       if (!data.val()) {
         this.setLoading(false);
       }
     });
-    api.booksRef.on("child_added", (data) => {
+    api.booksRef.on("child_added", data => {
       this.books.push({ id: data.key, ...data.val() });
       this.setLoading(false);
     });
-    api.booksRef.on("child_removed", (data) => {
+    api.booksRef.on("child_removed", data => {
       this.books = this.books.filter(book => book.id !== data.key);
     });
   },

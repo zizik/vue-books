@@ -1,4 +1,4 @@
-import SET_LOADING from "../mutation_types";
+import { SET_LOADING } from "../mutation_types";
 
 // initial state
 const state = {
