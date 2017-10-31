@@ -26,11 +26,13 @@ export default new Router({
       path: "/form",
       name: "Form",
       component: Form,
+      props: { isEditing: false },
     },
     {
       path: "/form/:id",
       name: "EditForm",
       component: Form,
+      props: { isEditing: true },
     },
     {
       path: "/signin",

@@ -23,6 +23,7 @@ import { mapGetters } from "vuex";
 import api from "../firebase/api/api";
 
 export default {
+  props: ["isEditing"],
   data() {
     return {
       bookData: {
@@ -31,7 +32,6 @@ export default {
         chapters: "",
         priority: "",
       },
-      isEditing: false,
     };
   },
   watch: {
@@ -59,13 +59,11 @@ export default {
       this.$router.push("/books");
     },
     setFormStatus() {
-      if (this.$route.params.id) {
-        this.isEditing = true;
+      if (this.isEditing) {
         api.getData(this.$route.params.id).on("value", snapshot => {
           this.bookData = snapshot.val();
         });
-      } else if (this.isEditing) {
-        this.isEditing = false;
+      } else {
         Object.keys(this.bookData).forEach(key => {
           this.bookData[key] = "";
         });
