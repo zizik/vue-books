@@ -33,7 +33,7 @@ export default {};
     padding: 6px 12px;
     border-bottom: $border;
     text-decoration: none;
-    color: #739931;
+    color: $link-color;
 
     &:hover {
       text-decoration: underline;
