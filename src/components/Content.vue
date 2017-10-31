@@ -54,7 +54,6 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import api from "../firebase/api/api";
-// import auth from "../firebase/auth/auth";
 
 export default {
   data() {
@@ -65,7 +64,6 @@ export default {
     };
   },
   created() {
-    // console.log(auth.getUser());
     this.setLoading(true);
     api.booksRef.once("value", data => {
       if (!data.val()) {
@@ -105,12 +103,8 @@ export default {
     },
   },
   methods: {
-    ...mapGetters({
-      getLoading: "getLoading",
-    }),
-    ...mapActions({
-      setLoading: "setLoading",
-    }),
+    ...mapGetters(["getLoading", "getUser"]),
+    ...mapActions(["setLoading"]),
     deleteBook(id) {
       api.removeData(id);
     },

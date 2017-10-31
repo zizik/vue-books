@@ -32,9 +32,7 @@ export default {
     });
   },
   methods: {
-    ...mapActions({
-      setUser: "setUser",
-    }),
+    ...mapActions(["setUser"]),
   },
 };
 </script>
