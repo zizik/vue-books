@@ -39,7 +39,6 @@ export default {
     },
   },
   created() {
-    api.setRef(this.getUser());
     this.setFormStatus();
   },
   methods: {

@@ -65,7 +65,6 @@ export default {
   },
   created() {
     this.setLoading(true);
-    api.setRef(this.getUser());
     api.booksRef.once("value", data => {
       if (!data.val()) {
         this.setLoading(false);

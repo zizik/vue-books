@@ -6,12 +6,16 @@ import App from "./App";
 import router from "./router/router";
 import store from "./store/store";
 import auth from "./firebase/auth/auth";
+import api from "./firebase/api/api";
 
 Vue.config.productionTip = false;
 Vue.use(VeeValidate, { events: "" });
 let app;
 
-auth.auth.onAuthStateChanged(() => {
+auth.auth.onAuthStateChanged(user => {
+  if (user) {
+    api.setRef(user.uid);
+  }
   if (!app) {
     /* eslint-disable no-new */
     new Vue({
