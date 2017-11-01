@@ -10,12 +10,17 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import auth from "../firebase/auth/auth";
 
 export default {
   methods: {
+    ...mapActions(["setUser"]),
     signOut() {
-      auth.signOut();
+      auth
+        .signOut()
+        .then(() => this.setUser(""))
+        .catch(err => console.log(err));
     },
   },
 };

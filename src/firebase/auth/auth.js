@@ -15,14 +15,7 @@ class User {
   }
 
   signOut() {
-    this.auth.signOut().then(
-      () => {
-        console.log("Signed Out");
-      },
-      error => {
-        console.error("Sign Out Error", error);
-      },
-    );
+    return this.auth.signOut();
   }
 
   getUser() {
