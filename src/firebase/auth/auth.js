@@ -3,7 +3,6 @@ import firebase from "../firebase";
 class User {
   constructor() {
     this.auth = firebase.auth();
-    this.isLogged = false;
   }
 
   createUser({ email, password }) {

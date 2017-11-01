@@ -25,6 +25,11 @@ export default {
       serverErrors: [],
     };
   },
+  beforeCreate() {
+    if (auth.getUser()) {
+      this.$router.replace({ name: "Books" });
+    }
+  },
   watch: {
     $route() {
       this.email = "";
