@@ -28,15 +28,8 @@ export default {
           email: this.email,
           password: this.password,
         })
-        .then(user => {
-          if (user) {
-            this.$router.replace({ name: "Books" });
-          }
-        })
-        .catch(err => {
-          // TODO: Использовать валидацию что бы вставить ошибки в шаблон
-          console.log(err);
-        });
+        .then(this.handleSucces)
+        .catch(this.handleError);
     },
     createUser() {
       auth
@@ -44,15 +37,17 @@ export default {
           email: this.email,
           password: this.password,
         })
-        .then(user => {
-          if (user) {
-            this.$router.replace({ name: "Books" });
-          }
-        })
-        .catch(err => {
-          // TODO: Использовать валидацию что бы вставить ошибки в шаблон
-          console.log(err);
-        });
+        .then(this.handleSucces)
+        .catch(this.handleError);
+    },
+    handleSucces(isSucces) {
+      if (isSucces) {
+        this.$router.replace({ name: "Books" });
+      }
+    },
+    handleError(err) {
+      // TODO: Использовать валидацию что бы вставить ошибки в шаблон
+      console.log(err);
     },
   },
   computed: {
