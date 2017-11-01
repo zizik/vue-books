@@ -25,6 +25,12 @@ export default {
       serverErrors: [],
     };
   },
+  watch: {
+    $route() {
+      this.email = "";
+      this.password = "";
+    },
+  },
   methods: {
     submit() {
       this.$validator.validateAll().then(isValid => {
