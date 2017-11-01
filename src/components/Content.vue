@@ -196,6 +196,7 @@ export default {
   }
 
   &__table-link {
+    color: $text-color;
     text-decoration: none;
 
     &:hover {

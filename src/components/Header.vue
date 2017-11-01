@@ -43,6 +43,7 @@ export default {
 
   &__link {
     text-decoration: none;
+    color: $text-color;
   }
 
   &__signout {
