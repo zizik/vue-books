@@ -58,7 +58,7 @@ export default {
     },
     setFormStatus() {
       if (this.isEditing) {
-        api.getData(this.$route.params.id).on("value", snapshot => {
+        api.getData(this.$route.params.id).once("value", snapshot => {
           this.bookData = snapshot.val();
         });
       } else {
