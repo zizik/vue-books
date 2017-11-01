@@ -7,6 +7,7 @@ class User {
   }
 
   createUser({ email, password }) {
+    console.log(this, email, password);
     return this.auth.createUserWithEmailAndPassword(email, password);
   }
 

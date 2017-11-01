@@ -1,10 +1,12 @@
 <template>
   <div class="home">
-    <form class="home__form" @submit.prevent="componentData.action">
+    <form class="home__form" @input="$validator.reset">
       <h1 class="home__greet" v-text="componentData.greetMsg"></h1>
-      <input class="home__input" type="text" v-model="email" placeholder="Введите почту">
-      <input class="home__input" type="password" v-model="password" placeholder="Введите пароль">
-      <button class="home__submit" v-text="componentData.submitBtn"></button>
+      <input class="home__input" v-validate="'required|email'" type="text" name="email" v-model="email" placeholder="Введите почту">
+      <span class="home__error" v-if="errors.has('email')" v-text="errors.first('email')"></span>
+      <input class="home__input" v-validate="'required|min:6'" type="password" name="password" v-model="password" placeholder="Введите пароль">
+      <span class="home__error" v-if="errors.has('password')" v-text="errors.first('password')"></span>
+      <button class="home__submit" @click.prevent="submit" v-text="componentData.submitBtn"></button>
       <p v-if="!isCreating" class="home__message">Нет аккаунта? <router-link class="home__link" :to="{name: 'SignIn'}">Create an account</router-link></p>
     </form>
   </div>
@@ -22,40 +24,32 @@ export default {
     };
   },
   methods: {
-    logIn() {
-      auth
-        .signIn({
-          email: this.email,
-          password: this.password,
-        })
-        .then(this.handleSucces)
-        .catch(this.handleError);
-    },
-    createUser() {
-      auth
-        .createUser({
-          email: this.email,
-          password: this.password,
-        })
-        .then(this.handleSucces)
-        .catch(this.handleError);
-    },
-    handleSucces(isSucces) {
-      if (isSucces) {
-        this.$router.replace({ name: "Books" });
-      }
-    },
-    handleError(err) {
-      // TODO: Использовать валидацию что бы вставить ошибки в шаблон
-      console.log(err);
+    submit() {
+      this.$validator.validateAll().then(isValid => {
+        if (isValid) {
+          this.componentData
+            .action({
+              email: this.email,
+              password: this.password,
+            })
+            .then(isSucces => {
+              if (isSucces) {
+                this.$router.replace({ name: "Books" });
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }
+      });
     },
   },
   computed: {
     componentData() {
       return {
         greetMsg: this.isCreating ? "Создайте аккаунт" : "Войдите чтобы продолжить",
-        submitBtn: this.isCreating ? "Создать аккаунт" : "Войдите на сайт",
-        action: this.isCreating ? this.createUser : this.logIn,
+        submitBtn: this.isCreating ? "Создать аккаунт" : "Войти на сайт",
+        action: this.isCreating ? auth.createUser.bind(auth) : auth.signIn.bind(auth),
       };
     },
   },
@@ -101,6 +95,12 @@ export default {
     color: $text-color;
     font-size: 14px;
     cursor: pointer;
+  }
+
+  &__error {
+    display: inline-block;
+    color: red;
+    margin-bottom: 20px;
   }
 
   &__message {
