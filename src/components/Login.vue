@@ -8,7 +8,7 @@
       <span class="home__error" v-if="errors.has('password')" v-text="errors.first('password')"></span>
       <span class="home__error" v-if="showServerErrors" v-text="showServerErrors"></span>
       <button class="home__submit" @click.prevent="submit" v-text="componentData.submitBtn"></button>
-      <p v-if="!isCreating" class="home__message">Нет аккаунта? <router-link class="home__link" :to="{name: 'SignIn'}">Create an account</router-link></p>
+      <p v-if="!isCreating" class="home__message">Нет аккаунта? <router-link class="home__link" :to="{name: 'SignIn'}">Создайте аккаунт</router-link></p>
     </form>
   </div>
 </template>
