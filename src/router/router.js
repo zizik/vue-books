@@ -15,7 +15,7 @@ export default new Router({
       path: "/",
       name: "Login",
       component: Login,
-      // redirect: "/books",
+      props: { isCreating: false },
     },
     {
       path: "/books",
@@ -38,6 +38,7 @@ export default new Router({
       path: "/signin",
       name: "SignIn",
       component: Login,
+      props: { isCreating: true },
     },
   ],
 });

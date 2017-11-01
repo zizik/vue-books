@@ -7,17 +7,7 @@ class User {
   }
 
   createUser({ email, password }) {
-    this.auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(good => console.log("good", good))
-      .catch(error => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
-        // ...
-      });
+    return this.auth.createUserWithEmailAndPassword(email, password);
   }
 
   signIn({ email, password }) {

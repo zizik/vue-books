@@ -1,11 +1,11 @@
 <template>
   <div class="home">
-    <form class="home__form" @submit.prevent="logIn">
-      <h1 class="home__greet">Добро пожаловать</h1>
+    <form class="home__form" @submit.prevent="componentData.action">
+      <h1 class="home__greet" v-text="componentData.greetMsg"></h1>
       <input class="home__input" type="text" v-model="email" placeholder="Введите почту">
       <input class="home__input" type="password" v-model="password" placeholder="Введите пароль">
-      <button class="home__submit">Зайти на сайт</button>
-      <p class="home__message">Нет аккаунта? <router-link class="home__link" :to="{name: 'SignIn'}">Create an account</router-link></p>
+      <button class="home__submit" v-text="componentData.submitBtn"></button>
+      <p v-if="!isCreating" class="home__message">Нет аккаунта? <router-link class="home__link" :to="{name: 'SignIn'}">Create an account</router-link></p>
     </form>
   </div>
 </template>
@@ -14,6 +14,7 @@
 import auth from "../firebase/auth/auth";
 
 export default {
+  props: ["isCreating"],
   data() {
     return {
       email: "fff@gmail.com",
@@ -36,6 +37,31 @@ export default {
           // TODO: Использовать валидацию что бы вставить ошибки в шаблон
           console.log(err);
         });
+    },
+    createUser() {
+      auth
+        .createUser({
+          email: this.email,
+          password: this.password,
+        })
+        .then(user => {
+          if (user) {
+            this.$router.replace({ name: "Books" });
+          }
+        })
+        .catch(err => {
+          // TODO: Использовать валидацию что бы вставить ошибки в шаблон
+          console.log(err);
+        });
+    },
+  },
+  computed: {
+    componentData() {
+      return {
+        greetMsg: this.isCreating ? "Создайте аккаунт" : "Войдите чтобы продолжить",
+        submitBtn: this.isCreating ? "Создать аккаунт" : "Войдите на сайт",
+        action: this.isCreating ? this.createUser : this.logIn,
+      };
     },
   },
 };
