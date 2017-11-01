@@ -81,6 +81,7 @@ export default {
 
   &__greet {
     @include helvetica(24px);
+    color: $text-color;
     margin-bottom: 30px;
   }
 
