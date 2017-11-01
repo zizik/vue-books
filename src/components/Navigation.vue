@@ -8,7 +8,7 @@
         <router-link class="navigation__link" :to="{name: 'Form'}">Add New Book</router-link>
       </li>
       <li class="navigation__list-item">
-        <router-link class="navigation__link" :to="{name: 'SignIn'}">Залогироваться</router-link>
+        <router-link class="navigation__link" :to="{name: 'SignIn'}">Создать аккаунт</router-link>
       </li>
     </ul>
   </nav>
