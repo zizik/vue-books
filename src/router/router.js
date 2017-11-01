@@ -2,8 +2,6 @@ import Vue from "vue";
 import Router from "vue-router";
 import Content from "../components/Content";
 import Form from "../components/Form";
-// import SignIn from "../components/SignIn";
-// import Login from "../components/Login";
 import Login from "../components/Login";
 
 Vue.use(Router);
