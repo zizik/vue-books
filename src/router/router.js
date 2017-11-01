@@ -16,6 +16,9 @@ export default new Router({
       component: Login,
       props: { isCreating: false },
       beforeEnter(to, from, next) {
+        if (!from.name) {
+          next({ name: "Books" });
+        }
         if (!auth.getUser()) {
           next();
         }
