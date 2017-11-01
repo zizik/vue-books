@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import auth from "../firebase/auth/auth";
 import Content from "../components/Content";
 import Form from "../components/Form";
 import Login from "../components/Login";
@@ -14,6 +15,11 @@ export default new Router({
       name: "Login",
       component: Login,
       props: { isCreating: false },
+      beforeEnter(to, from, next) {
+        if (!auth.getUser()) {
+          next();
+        }
+      },
     },
     {
       path: "/books",
