@@ -39,12 +39,10 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: $text-color;
   }
 
   &__link {
     text-decoration: none;
-    color: $text-color;
   }
 
   &__signout {

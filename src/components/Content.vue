@@ -178,7 +178,6 @@ export default {
 
   &__table-head {
     @include helvetica;
-    color: $text-color;
     background: $accent;
     text-align: left;
   }
@@ -197,7 +196,6 @@ export default {
   }
 
   &__table-link {
-    color: $text-color;
     text-decoration: none;
 
     &:hover {
