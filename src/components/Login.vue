@@ -1,14 +1,14 @@
 <template>
-  <div class="home">
-    <form class="home__form" @input="clearFormErrors">
-      <h1 class="home__greet" v-text="componentData.greetMsg"></h1>
-      <input class="home__input" v-validate="'required|email'" type="text" name="email" v-model="email" placeholder="Введите почту">
-      <span class="home__error" v-if="errors.has('email')" v-text="errors.first('email')"></span>
-      <input class="home__input" v-validate="'required|min:6'" type="password" name="password" v-model="password" placeholder="Введите пароль">
-      <span class="home__error" v-if="errors.has('password')" v-text="errors.first('password')"></span>
-      <span class="home__error" v-if="showServerErrors" v-text="showServerErrors"></span>
-      <button class="home__submit" @click.prevent="submit" v-text="componentData.submitBtn"></button>
-      <p v-if="!isCreating" class="home__message">Нет аккаунта? <router-link class="home__link" :to="{name: 'SignIn'}">Создайте аккаунт</router-link></p>
+  <div class="login">
+    <form class="login__form" @input="clearFormErrors">
+      <h1 class="login__greet" v-text="componentData.greetMsg"></h1>
+      <input class="login__input" v-validate="'required|email'" type="text" name="email" v-model="email" placeholder="Введите почту">
+      <span class="login__error" v-if="errors.has('email')" v-text="errors.first('email')"></span>
+      <input class="login__input" v-validate="'required|min:6'" type="password" name="password" v-model="password" placeholder="Введите пароль">
+      <span class="login__error" v-if="errors.has('password')" v-text="errors.first('password')"></span>
+      <span class="login__error" v-if="showServerErrors" v-text="showServerErrors"></span>
+      <button class="login__submit" @click.prevent="submit" v-text="componentData.submitBtn"></button>
+      <p v-if="!isCreating" class="login__message">Нет аккаунта? <router-link class="login__link" :to="{name: 'SignIn'}">Создайте аккаунт</router-link></p>
     </form>
   </div>
 </template>
@@ -60,7 +60,7 @@ export default {
   computed: {
     componentData() {
       return {
-        greetMsg: this.isCreating ? "Создайте аккаунт" : "Войдите чтобы продолжить",
+        greetMsg: this.isCreating ? "Создайте аккаунт" : "Войдите, чтобы продолжить",
         submitBtn: this.isCreating ? "Создать аккаунт" : "Войти на сайт",
         action: this.isCreating ? auth.createUser.bind(auth) : auth.signIn.bind(auth),
       };
@@ -76,7 +76,7 @@ export default {
 </script>
 
 <style lang="scss">
-.home {
+.login {
   flex-grow: 1;
 
   &__greet {
@@ -85,7 +85,7 @@ export default {
   }
 
   &__form {
-    background: #ffffff;
+    background-color: $light-color;
     max-width: 360px;
     margin: 0 auto 100px;
     padding: 45px;
