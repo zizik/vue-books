@@ -174,6 +174,7 @@ export default {
     border: $border;
     padding: 6px 12px;
     width: 50px;
+    vertical-align: middle;
   }
 
   &__table-head {
