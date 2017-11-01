@@ -13,8 +13,7 @@
         <option class="form__option" value="3">Низкий</option>
       </select>
       <span class="form__error" v-if="errors.has('priority')" v-text="errors.first('priority')"></span>
-      <button v-if="isEditing" class="form__submit" @click.prevent="editBook">Редактировать</button>
-      <button v-else class="form__submit" @click.prevent="createBook">Создать</button>
+      <button class="form__submit" @click.prevent="submit" v-text="submitText"></button>
   </form>
 </template>
 
@@ -45,18 +44,18 @@ export default {
   },
   methods: {
     ...mapGetters(["getUser"]),
-    createBook() {
+    submit() {
       this.$validator.validateAll().then(result => {
         if (result) {
-          api.setData(this.bookData).then(this.changeRoute);
+          this.submitAction().then(() => this.$router.push("/books"));
         }
       });
     },
-    editBook() {
-      api.updateData(this.$route.params.id, this.bookData).then(this.changeRoute);
-    },
-    changeRoute() {
-      this.$router.push("/books");
+    submitAction() {
+      if (this.isEditing) {
+        return api.updateData(this.$route.params.id, this.bookData);
+      }
+      return api.setData(this.bookData);
     },
     setFormStatus() {
       if (this.isEditing) {
@@ -69,6 +68,11 @@ export default {
         });
         this.$validator.reset();
       }
+    },
+  },
+  computed: {
+    submitText() {
+      return this.isEditing ? "Редактировать" : "Создать";
     },
   },
 };
