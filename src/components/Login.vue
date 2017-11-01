@@ -29,6 +29,7 @@ export default {
     $route() {
       this.email = "";
       this.password = "";
+      this.clearFormErrors();
     },
   },
   methods: {
