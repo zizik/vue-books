@@ -20,8 +20,8 @@ export default {
   props: ["isCreating"],
   data() {
     return {
-      email: "fff@gmail.com",
-      password: "123456",
+      email: "",
+      password: "",
       serverErrors: [],
     };
   },
