@@ -1,11 +1,12 @@
 <template>
   <div class="home">
-    <form class="home__form" @input="$validator.reset">
+    <form class="home__form" @input="clearFormErrors">
       <h1 class="home__greet" v-text="componentData.greetMsg"></h1>
       <input class="home__input" v-validate="'required|email'" type="text" name="email" v-model="email" placeholder="Введите почту">
       <span class="home__error" v-if="errors.has('email')" v-text="errors.first('email')"></span>
       <input class="home__input" v-validate="'required|min:6'" type="password" name="password" v-model="password" placeholder="Введите пароль">
       <span class="home__error" v-if="errors.has('password')" v-text="errors.first('password')"></span>
+      <span class="home__error" v-if="showServerErrors" v-text="showServerErrors"></span>
       <button class="home__submit" @click.prevent="submit" v-text="componentData.submitBtn"></button>
       <p v-if="!isCreating" class="home__message">Нет аккаунта? <router-link class="home__link" :to="{name: 'SignIn'}">Create an account</router-link></p>
     </form>
@@ -21,6 +22,7 @@ export default {
     return {
       email: "fff@gmail.com",
       password: "123456",
+      serverErrors: [],
     };
   },
   methods: {
@@ -38,10 +40,14 @@ export default {
               }
             })
             .catch(err => {
-              console.log(err);
+              this.serverErrors.push(err.message);
             });
         }
       });
+    },
+    clearFormErrors() {
+      this.$validator.reset();
+      this.serverErrors = [];
     },
   },
   computed: {
@@ -51,6 +57,12 @@ export default {
         submitBtn: this.isCreating ? "Создать аккаунт" : "Войти на сайт",
         action: this.isCreating ? auth.createUser.bind(auth) : auth.signIn.bind(auth),
       };
+    },
+    showServerErrors() {
+      if (this.serverErrors.length) {
+        return this.serverErrors[0];
+      }
+      return false;
     },
   },
 };
