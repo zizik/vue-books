@@ -81,7 +81,6 @@ export default {
 
   &__greet {
     @include helvetica(24px);
-    color: $text-color;
     margin-bottom: 30px;
   }
 
@@ -112,7 +111,6 @@ export default {
     outline: 0;
     width: 100%;
     padding: 15px;
-    color: $text-color;
     font-size: 14px;
     cursor: pointer;
   }
@@ -125,7 +123,6 @@ export default {
 
   &__message {
     margin: 15px 0 0;
-    color: $text-color;
     font-size: 12px;
   }
 
