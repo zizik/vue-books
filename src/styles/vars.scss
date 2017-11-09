@@ -26,3 +26,9 @@ $box-shadow: 0 1px 10px rgba(#000, 0.2);
   border: $border;
   box-shadow: $box-shadow;
 }
+
+@mixin button($padding: 6px 12px) {
+  padding: $padding;
+  background-color: $light-color;
+  @include edging;
+}

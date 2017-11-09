@@ -47,9 +47,7 @@ export default {
   }
 
   &__signout {
-    padding: 6px 12px;
-    background-color: $light-color;
-    @include edging;
+    @include button;
   }
 }
 </style>
