@@ -1,5 +1,5 @@
 <template>
-  <nav class="navigation">
+  <nav class="navigation" v-sticky="{stickyTop: 10 }">
     <ul class="navigation__list">
       <li class="navigation__list-item">
         <router-link class="navigation__link" :to="{name: 'Books'}">Книги</router-link>
@@ -12,7 +12,13 @@
 </template>
 
 <script>
-export default {};
+import VueSticky from "vue-sticky";
+
+export default {
+  directives: {
+    sticky: VueSticky,
+  },
+};
 </script>
 
 <style lang="scss">
