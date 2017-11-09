@@ -88,18 +88,20 @@ export default {
     hasBooks() {
       return this.books.length > 0;
     },
-    filteredBooks() {
-      const sortedBooks = [...this.books].sort((a, b) => {
+    sortedBooks() {
+      return [...this.books].sort((a, b) => {
         const priorityDiff = a.priority - b.priority;
         if (!priorityDiff) {
           return a.name > b.name ? 1 : -1;
         }
         return priorityDiff;
       });
+    },
+    filteredBooks() {
       if (!this.searchBook && this.priorityFilter === "all") {
-        return sortedBooks;
+        return this.sortedBooks;
       }
-      return sortedBooks.filter(
+      return this.sortedBooks.filter(
         book =>
           book.name.toLowerCase().includes(this.searchBook.toLowerCase()) &&
           (this.priorityFilter === "all" || this.priorityFilter === book.priority),
