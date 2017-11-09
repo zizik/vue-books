@@ -165,6 +165,7 @@ export default {
   }
 
   &__table {
+    margin-bottom: 25px;
     width: 100%;
     box-shadow: $box-shadow;
   }
