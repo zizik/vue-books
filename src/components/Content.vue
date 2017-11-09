@@ -124,10 +124,10 @@ export default {
         const { name: bookName, chapters, priority } = book;
         return { bookName, chapters, priority };
       });
-      const file = new Blob([JSON.stringify(booksText)], { type: "text/plain" });
+      const file = new Blob([JSON.stringify(booksText, null, 2)], { type: "application/json" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(file);
-      a.download = "books.txt";
+      a.download = "books.json";
       a.click();
     },
   },
