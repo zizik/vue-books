@@ -1,6 +1,6 @@
 <template>
   <form class="form" @input="$validator.reset">
-      <input class="form__input" v-validate="'required'" type="text" name="name" placeholder="Введите название" v-model.trim="bookData.name"> 
+      <input class="form__input" autofocus v-validate="'required'" type="text" name="name" placeholder="Введите название" v-model.trim="bookData.name"> 
       <span class="form__error" v-if="errors.has('name')" v-text="errors.first('name')"></span>
       <input class="form__input" v-validate="'required'" type="number" name="chapters" placeholder="Глав прочитано" v-model.number="bookData.chapters"> 
       <span class="form__error" v-if="errors.has('chapters')" v-text="errors.first('chapters')"></span>
