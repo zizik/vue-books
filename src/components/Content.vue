@@ -20,6 +20,7 @@
               <option value="3">Низкий</option>
             </select>
           </label>
+          <button class="content__save" @click="saveBooks">Сохранить список</button>
         </div>
         <table class="content__table">
           <thead class="content__table-head">
@@ -98,13 +99,14 @@ export default {
       });
     },
     filteredBooks() {
-      if (!this.searchBook && this.priorityFilter === "all") {
+      const showAll = this.priorityFilter === "all";
+      if (!this.searchBook && showAll) {
         return this.sortedBooks;
       }
       return this.sortedBooks.filter(
         book =>
           book.name.toLowerCase().includes(this.searchBook.toLowerCase()) &&
-          (this.priorityFilter === "all" || this.priorityFilter === book.priority),
+          (showAll || this.priorityFilter === book.priority),
       );
     },
   },
@@ -116,6 +118,17 @@ export default {
     },
     editBook(id) {
       this.$router.push({ name: "EditForm", params: { id } });
+    },
+    saveBooks() {
+      const booksText = this.sortedBooks.map(book => {
+        const { name: bookName, chapters, priority } = book;
+        return { bookName, chapters, priority };
+      });
+      const file = new Blob([JSON.stringify(booksText)], { type: "text/plain" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(file);
+      a.download = "books.txt";
+      a.click();
     },
   },
   filters: {
@@ -150,6 +163,12 @@ export default {
     padding: 6px 12px;
     text-align: center;
     margin-bottom: 10px;
+  }
+
+  &__save {
+    padding: 6px 12px;
+    background-color: $light-color;
+    @include edging;
   }
 
   &__label {
