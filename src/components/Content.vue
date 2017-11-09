@@ -89,9 +89,13 @@ export default {
       return this.books.length > 0;
     },
     filteredBooks() {
-      const sortedBooks = [...this.books].sort(
-        (a, b) => (a.name > b.name || a.priority > b.priority ? 1 : -1),
-      );
+      const sortedBooks = [...this.books].sort((a, b) => {
+        const priorityDiff = a.priority - b.priority;
+        if (!priorityDiff) {
+          return a.name > b.name ? 1 : -1;
+        }
+        return priorityDiff;
+      });
       if (!this.searchBook && this.priorityFilter === "all") {
         return sortedBooks;
       }
