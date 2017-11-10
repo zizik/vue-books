@@ -4,6 +4,7 @@
   "description": "A Vue.js project",
   "author": "Andrey",
   "private": true,
+  "main": "server.js",
   "scripts": {
     "start": "npm run dev",
     "dev": "node build/dev-server.js",
