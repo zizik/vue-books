@@ -8,7 +8,8 @@
     "start": "npm run dev",
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
-    "lint": "eslint --fix --ext  .js,.vue src"
+    "lint": "eslint --fix --ext  .js,.vue src",
+    "server": "nodemon server.js"
   },
   "dependencies": {
     "firebase": "^4.5.1",
@@ -68,9 +69,5 @@
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
 }
