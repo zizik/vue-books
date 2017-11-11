@@ -1,2 +1,1 @@
-web: npm install
-web: node --debug=5858 server.js
+web: node server.js

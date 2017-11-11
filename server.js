@@ -2,16 +2,17 @@ const path = require("path");
 const express = require("express");
 const app = express();
 
+app.set("port", process.env.PORT || 5000);
 app.use(express.static(path.join(__dirname, "dist")));
 
 app.get("/", (req, res) => {
-  res.render("index");
+  res.sendfile("/dist/index.html");
 });
 
 app.get("/*", (req, res) => {
   res.redirect("/");
 });
 
-app.listen(4000, () => {
-  console.log("Server started at port 4000");
+app.listen(app.get("port"), () => {
+  console.log(`Server started at port ${app.get("port")}`);
 });
