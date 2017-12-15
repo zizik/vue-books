@@ -90,13 +90,7 @@ export default {
       return this.books.length > 0;
     },
     sortedBooks() {
-      return [...this.books].sort((a, b) => {
-        const priorityDiff = a.priority - b.priority;
-        if (!priorityDiff) {
-          return a.name > b.name ? 1 : -1;
-        }
-        return priorityDiff;
-      });
+      return [...this.books].sort((a, b) => a.priority - b.priority);
     },
     filteredBooks() {
       const showAll = this.priorityFilter === "all";
@@ -104,9 +98,7 @@ export default {
         return this.sortedBooks;
       }
       return this.sortedBooks.filter(
-        book =>
-          book.name.toLowerCase().includes(this.searchBook.toLowerCase()) &&
-          (showAll || this.priorityFilter === book.priority),
+        book => book.name.toLowerCase().includes(this.searchBook.toLowerCase()) && (showAll || this.priorityFilter === book.priority),
       );
     },
   },
